@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEDIKLAR_2012 | Robototexnika</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --bg:#050912;--panel:#0b1424;--panel2:#101d31;--line:#1d3550;
+ --text:#f4f8ff;--muted:#9eb0c5;--cyan:#22d3ee;--blue:#3b82f6;
+ --purple:#8b5cf6;--green:#22c55e;
+}
+html{scroll-behavior:smooth}
+body{
+ font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+ background:
+ radial-gradient(circle at 15% 0%,rgba(34,211,238,.15),transparent 30%),
+ radial-gradient(circle at 90% 15%,rgba(139,92,246,.13),transparent 28%),
+ var(--bg);color:var(--text);min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+header{
+ position:sticky;top:0;z-index:50;background:rgba(5,9,18,.82);
+ backdrop-filter:blur(18px);border-bottom:1px solid rgba(61,91,120,.35)
+}
+.nav{max-width:1200px;margin:auto;height:70px;padding:0 20px;display:flex;align-items:center;gap:30px}
+.logo{font-size:21px;font-weight:900;letter-spacing:.5px}
+.logo span{color:var(--cyan)}
+.navlinks{display:flex;gap:6px;margin-left:auto}
+.navlinks a{padding:11px 14px;border-radius:12px;color:var(--muted);font-weight:700}
+.navlinks a:hover,.navlinks a.active{color:white;background:var(--panel2)}
+.menu{display:none;margin-left:auto;background:var(--panel2);border:1px solid var(--line);color:white;border-radius:11px;padding:9px 12px;font-size:20px}
+.hero{max-width:1200px;margin:auto;min-height:650px;padding:80px 20px 70px;display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #23516a;background:#0b2636;border-radius:999px;color:#8eeeff;font-size:13px;font-weight:800}
+h1{font-size:clamp(45px,7vw,78px);line-height:.98;margin:20px 0 22px;font-weight:950}
+h1 span{color:var(--cyan)}
+.hero p{font-size:18px;line-height:1.7;color:var(--muted);max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{padding:14px 19px;border-radius:13px;font-weight:850;border:1px solid var(--line)}
+.primary{background:linear-gradient(100deg,var(--cyan),var(--blue));color:#021019;border:0}
+.secondary{background:var(--panel);color:white}
+.visual{height:430px;border:1px solid var(--line);border-radius:30px;background:linear-gradient(145deg,#0c2036,#08101c);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 90px rgba(0,0,0,.35)}
+.visual:before,.visual:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(34,211,238,.25)}
+.visual:before{width:330px;height:330px}.visual:after{width:230px;height:230px}
+.robot{font-size:120px;position:relative;z-index:2;filter:drop-shadow(0 0 25px rgba(34,211,238,.3))}
+.float{position:absolute;background:#0d1d30;border:1px solid #294661;padding:10px 13px;border-radius:12px;font-size:12px;color:#c9d8e7;font-weight:800;z-index:3}
+.f1{top:45px;left:30px}.f2{right:28px;top:90px}.f3{left:45px;bottom:70px}.f4{right:35px;bottom:45px}
+section{scroll-margin-top:90px}
+.wrap{max-width:1200px;margin:auto;padding:30px 20px 90px}
+.section-title{text-align:center;margin-bottom:35px}
+.section-title .mini{color:var(--cyan);font-weight:900;font-size:13px;letter-spacing:2px}
+.section-title h2{font-size:38px;margin:8px 0}
+.section-title p{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:linear-gradient(180deg,var(--panel),#08111d);border:1px solid var(--line);border-radius:22px;padding:25px;transition:.25s}
+.card:hover{transform:translateY(-5px);border-color:#2c607d;box-shadow:0 18px 45px #0005}
+.icon{width:58px;height:58px;border-radius:16px;background:#102a40;display:grid;place-items:center;font-size:28px;margin-bottom:18px}
+.card h3{font-size:21px;margin-bottom:10px}.card p{color:var(--muted);line-height:1.6}
+.card button{margin-top:20px;width:100%;padding:11px;border-radius:11px;background:#0d1d2e;border:1px solid var(--line);color:white;font-weight:800}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.info{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:28px}
+.info h3{margin-bottom:12px}.info p{color:var(--muted);line-height:1.7}
+footer{border-top:1px solid var(--line);padding:30px 20px;text-align:center;color:var(--muted)}
+@media(max-width:850px){
+ .hero{grid-template-columns:1fr;padding-top:55px}.visual{height:330px}
+ .cards{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+ .nav{height:64px;gap:12px;padding:0 14px}.logo{font-size:17px;white-space:nowrap}
+ .navlinks{display:flex;position:fixed;top:0;right:0;bottom:0;left:auto;width:min(84vw,340px);
+   height:100dvh;padding:88px 18px 24px;background:linear-gradient(180deg,#0b1b2e,#050b14);
+   border-left:1px solid #29465f;box-shadow:-20px 0 60px #0009;flex-direction:column;gap:8px;
+   transform:translateX(110%);visibility:hidden;transition:transform .25s ease,visibility .25s;
+   z-index:80;overflow-y:auto}
+ .navlinks.open{transform:translateX(0);visibility:visible}
+ .navlinks a{display:flex;align-items:center;min-height:50px;padding:14px;border:1px solid transparent}
+ .navlinks a:hover,.navlinks a.active{border-color:#23445e;background:#102238}
+ .menu{display:block;position:relative;z-index:100;min-width:44px;min-height:44px}
+ .menu[aria-expanded="true"]{background:#12334a;border-color:var(--cyan)}
+ .mobile-menu-head{display:block;position:fixed;top:18px;right:calc(min(84vw,340px) - 60px);z-index:90;color:#9eefff;font-weight:900}
+ .menu-backdrop{display:block;position:fixed;inset:0;background:#0009;backdrop-filter:blur(3px);z-index:70}
+ .menu-backdrop[hidden]{display:none}
+ .hero{padding-top:45px;min-height:auto}.visual{height:300px}.robot{font-size:90px}
+ .cards{grid-template-columns:1fr}.section-title h2{font-size:30px}
+ h1{font-size:48px}
+}
+
+
+.search-panel{
+  background:linear-gradient(145deg,#0a1828,#07101c);
+  border:1px solid #25435d;border-radius:22px;padding:16px;margin-bottom:22px;
+  box-shadow:0 16px 45px #0005
+}
+.search-row{display:flex;gap:10px;align-items:center}
+.search-box{
+  flex:1;display:flex;align-items:center;gap:9px;background:#050d18;
+  border:1px solid #27465f;border-radius:14px;padding:0 10px 0 13px;
+}
+.search-box:focus-within{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.08)}
+.search-icon{font-size:18px}
+.search-box input{
+  width:100%;border:0;outline:0;background:transparent;color:white;
+  padding:14px 4px;font-size:15px
+}
+.clear-search{
+  display:none;border:1px solid #29465e;background:#102033;color:#cfe4f1;
+  border-radius:9px;padding:6px 9px;cursor:pointer
+}
+.search-box input:not(:placeholder-shown)+.clear-search{display:block}
+.search-row select{
+  min-width:250px;padding:14px 12px;background:#091321;border:1px solid var(--line);
+  border-radius:13px;color:white;outline:none
+}
+.search-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;color:#8fa7ba;font-size:12px}
+#searchStatus{color:#dff8ff;font-weight:800}
+.quick-search{
+  border:1px solid #24455f;background:#0d2033;color:#bfeeff;border-radius:999px;
+  padding:6px 10px;cursor:pointer;font-size:11px
+}
+.quick-search:hover{border-color:var(--cyan);color:white}
+.no-results{
+  display:none;text-align:center;padding:45px 20px;border:1px dashed #2a4860;
+  border-radius:20px;color:#9eb0c5;background:#07101b
+}
+.no-results b{display:block;color:white;font-size:20px;margin-bottom:8px}
+.search-hit{outline:2px solid rgba(34,211,238,.55);box-shadow:0 0 0 5px rgba(34,211,238,.06)}
+
+.topic{background:linear-gradient(180deg,#0b1727,#07101c);border:1px solid var(--line);border-radius:24px;padding:22px;margin-bottom:18px}
+.topic-head{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+.topic-icon{width:62px;height:62px;display:grid;place-items:center;background:#102b42;border:1px solid #21445e;border-radius:17px;font-size:30px;flex:none}
+.topic-no{font-size:11px;color:var(--cyan);font-weight:900;letter-spacing:2px}
+.topic h3{font-size:22px;margin:3px 0 4px}.topic p{color:var(--muted)}
+.subcards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.subcard{display:flex;flex-direction:column;justify-content:space-between;gap:12px;padding:15px;background:#091321;border:1px solid #1b3046;border-radius:15px}
+.subcard b{display:block;font-size:14px}.subcard span{display:block;color:var(--muted);font-size:12px;line-height:1.45;margin-top:6px}
+.subcard button{width:100%;padding:9px;border-radius:9px;border:1px solid #24435b;background:#0e2134;color:#dff8ff;font-weight:800;cursor:pointer}
+.subcard button:hover{border-color:var(--cyan)}
+.project-tools{display:flex;gap:12px;margin:0 0 22px}
+.project-tools input,.project-tools select{flex:1;padding:14px 15px;background:#091321;border:1px solid var(--line);border-radius:13px;color:white;outline:none}
+.project-tools input:focus,.project-tools select:focus{border-color:var(--cyan)}
+@media(max-width:850px){.subcards{grid-template-columns:1fr}.project-tools{flex-direction:column}}
+
+.subcard{overflow:hidden;padding:0;gap:0;background:#091321}
+.project-image{height:155px;background:#07101b;border-bottom:1px solid #1b3046}
+.project-image svg{display:block;width:100%;height:100%}
+.project-info{display:flex;gap:10px;padding:13px 14px 0}
+.project-icon{font-size:25px;flex:none}
+.project-info b{display:block;font-size:14px;line-height:1.25}
+.project-info span{display:block;color:var(--muted);font-size:12px;line-height:1.45;margin-top:5px}
+.subcard button{margin:13px 14px 14px;width:calc(100% - 28px)}
+
+.project-modal{position:fixed;inset:0;z-index:100;background:rgba(2,6,13,.84);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:18px}
+.project-modal.show{display:flex}
+.modal-box{width:min(980px,100%);max-height:92vh;overflow:auto;background:#091321;border:1px solid #29445e;border-radius:24px;box-shadow:0 30px 100px #000b}
+.modal-top{position:sticky;top:0;z-index:2;background:rgba(9,19,33,.97);padding:18px 22px;border-bottom:1px solid #1d3550;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.modal-top h2{font-size:24px}.close-modal{border:1px solid #2a465f;background:#0e2033;color:white;border-radius:11px;padding:8px 13px;font-size:19px;cursor:pointer}
+.modal-body{padding:22px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.detail{background:#07101b;border:1px solid #1a3045;border-radius:16px;padding:17px}.detail.full{grid-column:1/-1}
+.detail h3{font-size:16px;margin-bottom:11px}.detail p{color:#b5c4d3;line-height:1.6}
+.parts{display:flex;flex-wrap:wrap;gap:7px}.part{padding:7px 9px;border-radius:9px;background:#102b42;border:1px solid #234b65;color:#dff8ff;font-size:12px}
+.wiring{white-space:pre-wrap;color:#b9c9d8;line-height:1.55;font:12px/1.55 ui-monospace,monospace}
+.code-wrap{position:relative}.copy-code{position:absolute;right:8px;top:8px;border:1px solid #31506a;background:#102238;color:white;border-radius:8px;padding:7px 9px;cursor:pointer}
+.code{white-space:pre-wrap;overflow:auto;background:#030811;border:1px solid #17283b;border-radius:11px;padding:15px;color:#d7efff;font:12px/1.6 ui-monospace,monospace;max-height:360px}
+.steps{display:grid;gap:8px}.step{padding:10px 12px;background:#0c1a2a;border-radius:10px;color:#b9c9d8}
+@media(max-width:700px){.detail-grid{grid-template-columns:1fr}.detail.full{grid-column:auto}.modal-body{padding:14px}}
+
+/* 6-BOSQICH: mobil navigatsiya va kichik ekran qulayligi */
+@media(max-width:600px){
+ .search-panel{padding:12px;border-radius:17px}
+ .search-row{flex-direction:column;align-items:stretch}
+ .search-row select{min-width:0;width:100%}
+ .search-box input{font-size:14px;min-width:0}
+ .search-meta{gap:7px}
+ .quick-search{padding:7px 10px}
+ .topic{padding:14px;border-radius:18px}
+ .topic-head{align-items:flex-start;gap:11px}
+ .topic-icon{width:48px;height:48px;font-size:24px}
+ .topic h3{font-size:18px}
+ .project-image{height:135px}
+ .project-modal{padding:0;align-items:flex-end}
+ .modal-box{width:100%;max-height:94dvh;border-radius:22px 22px 0 0}
+ .modal-top{padding:14px 16px}
+ .modal-top h2{font-size:18px}
+ .code{font-size:11px;max-height:280px}
+ .detail{padding:13px}
+ .hero p{font-size:16px}
+ .actions .btn{flex:1;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+
+
+/* 6-bosqich yaxshilanishlari */
+.project-modal{padding:12px;align-items:center;justify-content:center;overflow-y:auto}
+.modal-box{width:min(940px,100%);max-height:calc(100dvh - 24px);overflow:hidden;display:flex;flex-direction:column;border-radius:20px}
+.modal-top{flex:0 0 auto;padding:12px 16px;min-height:54px}.modal-top h2{font-size:clamp(17px,3vw,23px);margin:0;line-height:1.3}
+.modal-body{overflow-y:auto;overscroll-behavior:contain;padding:14px;min-height:0}.detail-grid{gap:12px}.detail{min-width:0;padding:14px}
+.code-wrap{padding-top:42px;min-width:0}.copy-code{top:0;right:0;z-index:1;min-height:34px;padding:7px 12px}
+.code{display:block;max-width:100%;max-height:42vh;overflow:auto;white-space:pre;overflow-wrap:normal;word-break:normal;padding:13px;font-size:12px;tab-size:2;-webkit-overflow-scrolling:touch}
+.parts .part{font-size:13px;line-height:1.45}
+@media(max-width:700px){.project-modal{padding:10px;align-items:center}.modal-box{width:100%;max-height:calc(100dvh - 20px);border-radius:18px}.modal-top{padding:11px 13px}.modal-body{padding:11px}.detail-grid{grid-template-columns:1fr}.detail.full{grid-column:auto}.code{max-height:34vh;font-size:11px}}
+
+</style>
+</head>
+<body>
+
+<header>
+ <div class="nav">
+  <a class="logo" href="#home">🤖 <span>MEDIKLAR_2012</span></a>
+  <button class="menu" id="menuToggle" type="button" aria-label="Menyuni ochish" aria-controls="navlinks" aria-expanded="false" onclick="toggleMenu()">☰</button>
+  <div class="menu-backdrop" id="menuBackdrop" hidden onclick="closeMenu()"></div>
+  <nav class="navlinks" id="navlinks" aria-label="Asosiy navigatsiya">
+   <div class="mobile-menu-head">🤖 MENYU</div>
+   <a class="active" href="#home">🏠 Bosh sahifa</a>
+   <a href="#all-projects">🤖 Loyihalar</a>
+   <a href="#arduino">💻 Arduino</a>
+   <a href="#guides">📚 Qo‘llanmalar</a>
+  </nav>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+ <div>
+  <div class="badge">⚡ ARDUINO • ROBOT • ELEKTRONIKA</div>
+  <h1>Robototexnika<br><span>loyihalar olami.</span></h1>
+  <p>
+   MEDIKLAR_2012 — Arduino, sensorlar, motorlar va aqlli robotlarni
+   yasashni o‘rganish uchun zamonaviy loyiha platformasi.
+  </p>
+  <div class="actions">
+   <a class="btn primary" href="#all-projects">🚀 Loyihalarni ko‘rish</a>
+   <a class="btn secondary" href="#arduino">💻 Arduino</a>
+  </div>
+ </div>
+ <div class="visual">
+  <div class="float f1">⚙️ Arduino</div>
+  <div class="float f2">📡 Sensorlar</div>
+  <div class="float f3">⚡ Motorlar</div>
+  <div class="float f4">🤖 Robotlar</div>
+  <div class="robot">🤖</div>
+ </div>
+</section>
+
+<section class="wrap" id="projects-preview">
+ <div class="section-title">
+  <div class="mini">LOYIHALAR</div>
+  <h2>Robototexnika loyihalari</h2>
+  <p>Keyingi bosqichlarda bu yerga 54 ta loyiha joylashtiriladi.</p>
+ </div>
+ <div class="cards">
+  <article class="card"><div class="icon">🤖</div><h3>Chiziq bo‘ylab robot</h3><p>IR sensorlar yordamida chiziqni kuzatadigan robot.</p><button>▶️ Batafsil — 2-bosqich</button></article>
+  <article class="card"><div class="icon">🦾</div><h3>Robot manipulyator</h3><p>Servo motorlar bilan boshqariladigan robot qo‘l.</p><button>▶️ Batafsil — 2-bosqich</button></article>
+  <article class="card"><div class="icon">📡</div><h3>Bluetooth robot</h3><p>Telefon orqali masofadan boshqariladigan robot.</p><button>▶️ Batafsil — 2-bosqich</button></article>
+ </div>
+</section>
+
+
+<section class="wrap" id="all-projects">
+ <div class="section-title">
+  <div class="mini">6-BOSQICH • 📱 MOBIL MENYU</div>
+  <h2>54 ta loyihani tez toping</h2>
+  <p>Loyiha nomi, mavzu, Arduino qurilmasi, sensor, motor driver, pin ulanishi yoki kod bo‘yicha qidiring.</p>
+ </div>
+ <div class="search-panel">
+   <div class="search-row">
+     <div class="search-box">
+       <span class="search-icon">🔎</span>
+       <input id="projectSearch" type="search"
+              placeholder="Loyiha, mavzu, Arduino, sensor, pin yoki komponent qidiring..."
+              autocomplete="off" oninput="filterProjects()">
+       <button class="clear-search" id="clearSearch" onclick="clearProjectSearch()" title="Qidiruvni tozalash">✕</button>
+     </div>
+     <select id="topicFilter" onchange="filterProjects()">
+       <option value="">Barcha 18 mavzu</option>
+     <option value="1">Mavzu 01 — Chiziq bo‘ylab yuruvchi mashina</option><option value="2">Mavzu 02 — Robot changyutgich</option><option value="3">Mavzu 03 — 4×4 tugmalar bilan ishlash</option><option value="4">Mavzu 04 — Smart qulf</option><option value="5">Mavzu 05 — Radio controller (NRF24L01)</option><option value="6">Mavzu 06 — Kvadrokopter</option><option value="7">Mavzu 07 — Joystick boshqaruv qurilmasi</option><option value="8">Mavzu 08 — Ultratovush datchigi</option><option value="9">Mavzu 09 — IR datchigi</option><option value="10">Mavzu 10 — Manipulyator yasash</option><option value="11">Mavzu 11 — To‘siqdan qochuvchi robot</option><option value="12">Mavzu 12 — Sumo Car</option><option value="13">Mavzu 13 — Motor driver va turlari</option><option value="14">Mavzu 14 — Servo motorlar</option><option value="15">Mavzu 15 — Qadamli motor</option><option value="16">Mavzu 16 — Bluetooth orqali boshqarish</option><option value="17">Mavzu 17 — Infraqizil nurli boshqaruv</option><option value="18">Mavzu 18 — Qo‘shimcha robototexnika amaliyotlari</option>
+   </select>
+   </div>
+   <div class="search-meta">
+     <span id="searchStatus">54 ta loyiha ko‘rsatilmoqda</span>
+     <span>•</span>
+     <button class="quick-search" onclick="quickSearch('Arduino UNO')">Arduino UNO</button>
+     <button class="quick-search" onclick="quickSearch('HC-SR04')">HC-SR04</button>
+     <button class="quick-search" onclick="quickSearch('HC-05')">HC-05</button>
+     <button class="quick-search" onclick="quickSearch('servo')">Servo</button>
+     <button class="quick-search" onclick="quickSearch('L298N')">L298N</button>
+   </div>
+ </div>
+ <div class="topics" id="topics">
+   
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🚗</div>
+        <div><div class="topic-no">MAVZU 01</div><h3>Chiziq bo‘ylab yuruvchi mashina</h3><p>Line follower, IR sensorlar va robot mashina</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="line follower robot" data-category="line">
+      <div class="project-image"><svg viewBox="0 0 700 330" aria-label="Line follower robot illustration">
+<rect width="700" height="330" rx="24" fill="#08111d"/><path d="M80 245H620" stroke="#263d52" stroke-width="7"/>
+<path d="M80 245C210 210 260 285 360 240S510 195 620 225" fill="none" stroke="#f3f7fb" stroke-width="8" stroke-dasharray="2 18" stroke-linecap="round"/>
+<rect x="265" y="135" width="170" height="80" rx="18" fill="#12314a" stroke="#2bd8f2" stroke-width="4"/>
+<circle cx="295" cy="225" r="30" fill="#101b2b" stroke="#91a7bc" stroke-width="7"/><circle cx="405" cy="225" r="30" fill="#101b2b" stroke="#91a7bc" stroke-width="7"/>
+<circle cx="300" cy="175" r="9" fill="#22d3ee"/><circle cx="400" cy="175" r="9" fill="#8b5cf6"/>
+<path d="M350 135V92M350 92l-18-16M350 92l18-16" stroke="#9eb0c5" stroke-width="6" fill="none"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🤖</div><div><b>1. Line follower robot</b><span>IR sensorlar bilan chiziq bo‘ylab yuruvchi robot</span></div></div>
+      <button onclick="openProject(0)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="ikki motorli chiziq roboti" data-category="line">
+      <div class="project-image"><svg viewBox="0 0 700 330" aria-label="Line follower robot illustration">
+<rect width="700" height="330" rx="24" fill="#08111d"/><path d="M80 245H620" stroke="#263d52" stroke-width="7"/>
+<path d="M80 245C210 210 260 285 360 240S510 195 620 225" fill="none" stroke="#f3f7fb" stroke-width="8" stroke-dasharray="2 18" stroke-linecap="round"/>
+<rect x="265" y="135" width="170" height="80" rx="18" fill="#12314a" stroke="#2bd8f2" stroke-width="4"/>
+<circle cx="295" cy="225" r="30" fill="#101b2b" stroke="#91a7bc" stroke-width="7"/><circle cx="405" cy="225" r="30" fill="#101b2b" stroke="#91a7bc" stroke-width="7"/>
+<circle cx="300" cy="175" r="9" fill="#22d3ee"/><circle cx="400" cy="175" r="9" fill="#8b5cf6"/>
+<path d="M350 135V92M350 92l-18-16M350 92l18-16" stroke="#9eb0c5" stroke-width="6" fill="none"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🚗</div><div><b>2. Ikki motorli chiziq roboti</b><span>Motor driver bilan chap va o‘ng burilish</span></div></div>
+      <button onclick="openProject(1)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="tezkor line follower" data-category="line">
+      <div class="project-image"><svg viewBox="0 0 700 330" aria-label="Line follower robot illustration">
+<rect width="700" height="330" rx="24" fill="#08111d"/><path d="M80 245H620" stroke="#263d52" stroke-width="7"/>
+<path d="M80 245C210 210 260 285 360 240S510 195 620 225" fill="none" stroke="#f3f7fb" stroke-width="8" stroke-dasharray="2 18" stroke-linecap="round"/>
+<rect x="265" y="135" width="170" height="80" rx="18" fill="#12314a" stroke="#2bd8f2" stroke-width="4"/>
+<circle cx="295" cy="225" r="30" fill="#101b2b" stroke="#91a7bc" stroke-width="7"/><circle cx="405" cy="225" r="30" fill="#101b2b" stroke="#91a7bc" stroke-width="7"/>
+<circle cx="300" cy="175" r="9" fill="#22d3ee"/><circle cx="400" cy="175" r="9" fill="#8b5cf6"/>
+<path d="M350 135V92M350 92l-18-16M350 92l18-16" stroke="#9eb0c5" stroke-width="6" fill="none"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">⚡</div><div><b>3. Tezkor line follower</b><span>Sensor sezgirligi va tezlikni sozlash</span></div></div>
+      <button onclick="openProject(2)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🧹</div>
+        <div><div class="topic-no">MAVZU 02</div><h3>Robot changyutgich</h3><p>Avtonom tozalovchi robotlar</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="robot changyutgich" data-category="vacuum">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<ellipse cx="350" cy="190" rx="120" ry="68" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<ellipse cx="350" cy="185" rx="70" ry="35" fill="#0b1727" stroke="#35526b" stroke-width="4"/>
+<circle cx="315" cy="185" r="8" fill="#22d3ee"/><circle cx="385" cy="185" r="8" fill="#8b5cf6"/>
+<path d="M260 245l-25 35M440 245l25 35" stroke="#8197aa" stroke-width="10"/>
+<path d="M110 90h480M110 110h350" stroke="#1b344a" stroke-width="7" stroke-linecap="round"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🧹</div><div><b>1. Robot changyutgich</b><span>Avtomatik tozalash uchun mini robot</span></div></div>
+      <button onclick="openProject(3)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="avtomatik tozalash roboti" data-category="vacuum">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<ellipse cx="350" cy="190" rx="120" ry="68" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<ellipse cx="350" cy="185" rx="70" ry="35" fill="#0b1727" stroke="#35526b" stroke-width="4"/>
+<circle cx="315" cy="185" r="8" fill="#22d3ee"/><circle cx="385" cy="185" r="8" fill="#8b5cf6"/>
+<path d="M260 245l-25 35M440 245l25 35" stroke="#8197aa" stroke-width="10"/>
+<path d="M110 90h480M110 110h350" stroke="#1b344a" stroke-width="7" stroke-linecap="round"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🌀</div><div><b>2. Avtomatik tozalash roboti</b><span>To‘siqlarni sezib yo‘nalishni almashtirish</span></div></div>
+      <button onclick="openProject(4)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="mini vacuum robot" data-category="vacuum">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<ellipse cx="350" cy="190" rx="120" ry="68" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<ellipse cx="350" cy="185" rx="70" ry="35" fill="#0b1727" stroke="#35526b" stroke-width="4"/>
+<circle cx="315" cy="185" r="8" fill="#22d3ee"/><circle cx="385" cy="185" r="8" fill="#8b5cf6"/>
+<path d="M260 245l-25 35M440 245l25 35" stroke="#8197aa" stroke-width="10"/>
+<path d="M110 90h480M110 110h350" stroke="#1b344a" stroke-width="7" stroke-linecap="round"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔋</div><div><b>3. Mini vacuum robot</b><span>Kichik motor va ventilyatorli model</span></div></div>
+      <button onclick="openProject(5)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🔢</div>
+        <div><div class="topic-no">MAVZU 03</div><h3>4×4 tugmalar bilan ishlash</h3><p>Keypad va Arduino boshqaruvi</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="4×4 keypad led boshqaruvi" data-category="keypad">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="255" y="45" width="190" height="240" rx="18" fill="#102033" stroke="#22d3ee" stroke-width="4"/>
+<rect x="280" y="70" width="140" height="45" rx="8" fill="#07101b" stroke="#35526b"/>
+<g fill="#162f46" stroke="#2c536d"><rect x="280" y="135" width="38" height="32" rx="7"/><rect x="331" y="135" width="38" height="32" rx="7"/><rect x="382" y="135" width="38" height="32" rx="7"/><rect x="280" y="178" width="38" height="32" rx="7"/><rect x="331" y="178" width="38" height="32" rx="7"/><rect x="382" y="178" width="38" height="32" rx="7"/><rect x="280" y="221" width="38" height="32" rx="7"/><rect x="331" y="221" width="38" height="32" rx="7"/><rect x="382" y="221" width="38" height="32" rx="7"/></g>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔢</div><div><b>1. 4×4 keypad LED boshqaruvi</b><span>Tugmalar orqali Arduino chiqishlarini boshqarish</span></div></div>
+      <button onclick="openProject(6)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="password keypad" data-category="keypad">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="255" y="45" width="190" height="240" rx="18" fill="#102033" stroke="#22d3ee" stroke-width="4"/>
+<rect x="280" y="70" width="140" height="45" rx="8" fill="#07101b" stroke="#35526b"/>
+<g fill="#162f46" stroke="#2c536d"><rect x="280" y="135" width="38" height="32" rx="7"/><rect x="331" y="135" width="38" height="32" rx="7"/><rect x="382" y="135" width="38" height="32" rx="7"/><rect x="280" y="178" width="38" height="32" rx="7"/><rect x="331" y="178" width="38" height="32" rx="7"/><rect x="382" y="178" width="38" height="32" rx="7"/><rect x="280" y="221" width="38" height="32" rx="7"/><rect x="331" y="221" width="38" height="32" rx="7"/><rect x="382" y="221" width="38" height="32" rx="7"/></g>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔐</div><div><b>2. Password keypad</b><span>Keypad orqali parol tekshirish</span></div></div>
+      <button onclick="openProject(7)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="keypad menyu" data-category="keypad">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="255" y="45" width="190" height="240" rx="18" fill="#102033" stroke="#22d3ee" stroke-width="4"/>
+<rect x="280" y="70" width="140" height="45" rx="8" fill="#07101b" stroke="#35526b"/>
+<g fill="#162f46" stroke="#2c536d"><rect x="280" y="135" width="38" height="32" rx="7"/><rect x="331" y="135" width="38" height="32" rx="7"/><rect x="382" y="135" width="38" height="32" rx="7"/><rect x="280" y="178" width="38" height="32" rx="7"/><rect x="331" y="178" width="38" height="32" rx="7"/><rect x="382" y="178" width="38" height="32" rx="7"/><rect x="280" y="221" width="38" height="32" rx="7"/><rect x="331" y="221" width="38" height="32" rx="7"/><rect x="382" y="221" width="38" height="32" rx="7"/></g>
+</svg></div>
+      <div class="project-info"><div class="project-icon">⌨️</div><div><b>3. Keypad menyu</b><span>Tugmalar yordamida Arduino menyusi</span></div></div>
+      <button onclick="openProject(8)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🔐</div>
+        <div><div class="topic-no">MAVZU 04</div><h3>Smart qulf</h3><p>Servo, keypad va xavfsizlik tizimlari</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="servo smart lock" data-category="lock">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="245" y="120" width="210" height="135" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M285 125V90c0-45 130-45 130 0v35" fill="none" stroke="#9eb0c5" stroke-width="20"/>
+<circle cx="350" cy="180" r="20" fill="#22d3ee"/><path d="M350 198v30" stroke="#22d3ee" stroke-width="8"/>
+<path d="M120 265h460" stroke="#1e3850" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔒</div><div><b>1. Servo smart lock</b><span>To‘g‘ri parolda qulfni ochish</span></div></div>
+      <button onclick="openProject(9)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="rfid + smart lock" data-category="lock">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="245" y="120" width="210" height="135" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M285 125V90c0-45 130-45 130 0v35" fill="none" stroke="#9eb0c5" stroke-width="20"/>
+<circle cx="350" cy="180" r="20" fill="#22d3ee"/><path d="M350 198v30" stroke="#22d3ee" stroke-width="8"/>
+<path d="M120 265h460" stroke="#1e3850" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">💳</div><div><b>2. RFID + smart lock</b><span>Karta orqali qulf boshqaruvi</span></div></div>
+      <button onclick="openProject(10)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="alarm smart lock" data-category="lock">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="245" y="120" width="210" height="135" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M285 125V90c0-45 130-45 130 0v35" fill="none" stroke="#9eb0c5" stroke-width="20"/>
+<circle cx="350" cy="180" r="20" fill="#22d3ee"/><path d="M350 198v30" stroke="#22d3ee" stroke-width="8"/>
+<path d="M120 265h460" stroke="#1e3850" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🚨</div><div><b>3. Alarm smart lock</b><span>Noto‘g‘ri parolda signal berish</span></div></div>
+      <button onclick="openProject(11)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">📡</div>
+        <div><div class="topic-no">MAVZU 05</div><h3>Radio controller (NRF24L01)</h3><p>Simsiz radio boshqaruv</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="nrf24l01 transmitter" data-category="radio">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="100" y="95" width="180" height="140" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="4"/>
+<rect x="420" y="95" width="180" height="140" rx="18" fill="#102b42" stroke="#8b5cf6" stroke-width="4"/>
+<path d="M300 130C350 90 350 90 400 130M300 165C350 125 350 125 400 165M300 200C350 160 350 160 400 200" fill="none" stroke="#22d3ee" stroke-width="6"/>
+<path d="M160 75V45M540 75V45" stroke="#9eb0c5" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📡</div><div><b>1. NRF24L01 transmitter</b><span>Ikki Arduino orasida ma’lumot yuborish</span></div></div>
+      <button onclick="openProject(12)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="nrf24l01 robot boshqaruvi" data-category="radio">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="100" y="95" width="180" height="140" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="4"/>
+<rect x="420" y="95" width="180" height="140" rx="18" fill="#102b42" stroke="#8b5cf6" stroke-width="4"/>
+<path d="M300 130C350 90 350 90 400 130M300 165C350 125 350 125 400 165M300 200C350 160 350 160 400 200" fill="none" stroke="#22d3ee" stroke-width="6"/>
+<path d="M160 75V45M540 75V45" stroke="#9eb0c5" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🎮</div><div><b>2. NRF24L01 robot boshqaruvi</b><span>Radio orqali robotni masofadan boshqarish</span></div></div>
+      <button onclick="openProject(13)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="wireless sensor" data-category="radio">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="100" y="95" width="180" height="140" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="4"/>
+<rect x="420" y="95" width="180" height="140" rx="18" fill="#102b42" stroke="#8b5cf6" stroke-width="4"/>
+<path d="M300 130C350 90 350 90 400 130M300 165C350 125 350 125 400 165M300 200C350 160 350 160 400 200" fill="none" stroke="#22d3ee" stroke-width="6"/>
+<path d="M160 75V45M540 75V45" stroke="#9eb0c5" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📶</div><div><b>3. Wireless sensor</b><span>Sensor qiymatini simsiz uzatish</span></div></div>
+      <button onclick="openProject(14)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🚁</div>
+        <div><div class="topic-no">MAVZU 06</div><h3>Kvadrokopter</h3><p>Motorlar, ESC va parvoz boshqaruvi</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="mini quadcopter" data-category="drone">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<path d="M350 100L430 160 390 215H310L270 160Z" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M270 160L185 115M430 160l85-45M310 200l-75 65M390 200l75 65" stroke="#9eb0c5" stroke-width="9"/>
+<ellipse cx="160" cy="105" rx="80" ry="14" fill="none" stroke="#35526b" stroke-width="5"/><ellipse cx="540" cy="105" rx="80" ry="14" fill="none" stroke="#35526b" stroke-width="5"/>
+<ellipse cx="150" cy="275" rx="70" ry="12" fill="none" stroke="#35526b" stroke-width="5"/><ellipse cx="550" cy="275" rx="70" ry="12" fill="none" stroke="#35526b" stroke-width="5"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🚁</div><div><b>1. Mini quadcopter</b><span>Kvadrokopter qismlari bilan tanishish</span></div></div>
+      <button onclick="openProject(15)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="esc va brushless motor" data-category="drone">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<path d="M350 100L430 160 390 215H310L270 160Z" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M270 160L185 115M430 160l85-45M310 200l-75 65M390 200l75 65" stroke="#9eb0c5" stroke-width="9"/>
+<ellipse cx="160" cy="105" rx="80" ry="14" fill="none" stroke="#35526b" stroke-width="5"/><ellipse cx="540" cy="105" rx="80" ry="14" fill="none" stroke="#35526b" stroke-width="5"/>
+<ellipse cx="150" cy="275" rx="70" ry="12" fill="none" stroke="#35526b" stroke-width="5"/><ellipse cx="550" cy="275" rx="70" ry="12" fill="none" stroke="#35526b" stroke-width="5"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">⚙️</div><div><b>2. ESC va brushless motor</b><span>Motor tezligini boshqarish</span></div></div>
+      <button onclick="openProject(16)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="gyro stabilizatsiya" data-category="drone">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<path d="M350 100L430 160 390 215H310L270 160Z" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M270 160L185 115M430 160l85-45M310 200l-75 65M390 200l75 65" stroke="#9eb0c5" stroke-width="9"/>
+<ellipse cx="160" cy="105" rx="80" ry="14" fill="none" stroke="#35526b" stroke-width="5"/><ellipse cx="540" cy="105" rx="80" ry="14" fill="none" stroke="#35526b" stroke-width="5"/>
+<ellipse cx="150" cy="275" rx="70" ry="12" fill="none" stroke="#35526b" stroke-width="5"/><ellipse cx="550" cy="275" rx="70" ry="12" fill="none" stroke="#35526b" stroke-width="5"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🧭</div><div><b>3. Gyro stabilizatsiya</b><span>Parvoz barqarorligini tushunish</span></div></div>
+      <button onclick="openProject(17)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🕹️</div>
+        <div><div class="topic-no">MAVZU 07</div><h3>Joystick boshqaruv qurilmasi</h3><p>KY-023 joystick bilan boshqarish</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="joystick servo" data-category="joystick">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="220" y="80" width="260" height="180" rx="25" fill="#102033" stroke="#22d3ee" stroke-width="4"/>
+<circle cx="350" cy="165" r="58" fill="#0a1624" stroke="#38566e" stroke-width="5"/>
+<circle cx="350" cy="165" r="30" fill="#8b5cf6"/><path d="M350 135V90M350 195v45M320 165h-45M380 165h45" stroke="#9eb0c5" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🕹️</div><div><b>1. Joystick servo</b><span>KY-023 bilan servo burchagini boshqarish</span></div></div>
+      <button onclick="openProject(18)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="joystick robot" data-category="joystick">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="220" y="80" width="260" height="180" rx="25" fill="#102033" stroke="#22d3ee" stroke-width="4"/>
+<circle cx="350" cy="165" r="58" fill="#0a1624" stroke="#38566e" stroke-width="5"/>
+<circle cx="350" cy="165" r="30" fill="#8b5cf6"/><path d="M350 135V90M350 195v45M320 165h-45M380 165h45" stroke="#9eb0c5" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🤖</div><div><b>2. Joystick robot</b><span>Joystick yordamida ikki motorni boshqarish</span></div></div>
+      <button onclick="openProject(19)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="joystick + led" data-category="joystick">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="220" y="80" width="260" height="180" rx="25" fill="#102033" stroke="#22d3ee" stroke-width="4"/>
+<circle cx="350" cy="165" r="58" fill="#0a1624" stroke="#38566e" stroke-width="5"/>
+<circle cx="350" cy="165" r="30" fill="#8b5cf6"/><path d="M350 135V90M350 195v45M320 165h-45M380 165h45" stroke="#9eb0c5" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">💡</div><div><b>3. Joystick + LED</b><span>Joystick o‘qiga qarab LED boshqarish</span></div></div>
+      <button onclick="openProject(20)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">📏</div>
+        <div><div class="topic-no">MAVZU 08</div><h3>Ultratovush datchigi</h3><p>HC-SR04 va masofa o‘lchash</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="hc-sr04 masofa o‘lchagich" data-category="ultra">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="235" y="105" width="230" height="115" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="290" cy="160" r="23" fill="#07101b" stroke="#9eb0c5" stroke-width="6"/><circle cx="410" cy="160" r="23" fill="#07101b" stroke="#9eb0c5" stroke-width="6"/>
+<path d="M180 85C130 130 130 200 180 245M520 85c50 45 50 115 0 160M220 110c-30 30-30 80 0 110M480 110c30 30 30 80 0 110" fill="none" stroke="#22d3ee" stroke-width="5" opacity=".65"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📏</div><div><b>1. HC-SR04 masofa o‘lchagich</b><span>Masofani santimetrda o‘lchash</span></div></div>
+      <button onclick="openProject(21)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="ultrasonic parking" data-category="ultra">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="235" y="105" width="230" height="115" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="290" cy="160" r="23" fill="#07101b" stroke="#9eb0c5" stroke-width="6"/><circle cx="410" cy="160" r="23" fill="#07101b" stroke="#9eb0c5" stroke-width="6"/>
+<path d="M180 85C130 130 130 200 180 245M520 85c50 45 50 115 0 160M220 110c-30 30-30 80 0 110M480 110c30 30 30 80 0 110" fill="none" stroke="#22d3ee" stroke-width="5" opacity=".65"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🅿️</div><div><b>2. Ultrasonic parking</b><span>Masofa yaqinlashganda signal berish</span></div></div>
+      <button onclick="openProject(22)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="ultrasonic radar" data-category="ultra">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="235" y="105" width="230" height="115" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="290" cy="160" r="23" fill="#07101b" stroke="#9eb0c5" stroke-width="6"/><circle cx="410" cy="160" r="23" fill="#07101b" stroke="#9eb0c5" stroke-width="6"/>
+<path d="M180 85C130 130 130 200 180 245M520 85c50 45 50 115 0 160M220 110c-30 30-30 80 0 110M480 110c30 30 30 80 0 110" fill="none" stroke="#22d3ee" stroke-width="5" opacity=".65"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📡</div><div><b>3. Ultrasonic radar</b><span>Servo bilan 180° skanerlash</span></div></div>
+      <button onclick="openProject(23)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🔴</div>
+        <div><div class="topic-no">MAVZU 09</div><h3>IR datchigi</h3><p>Infraqizil sensorlar</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="ir line sensor" data-category="ir">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="260" y="105" width="180" height="115" rx="16" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="315" cy="163" r="22" fill="#07101b" stroke="#ef4444" stroke-width="6"/><circle cx="385" cy="163" r="22" fill="#07101b" stroke="#ef4444" stroke-width="6"/>
+<path d="M315 125C260 85 215 85 175 115M385 125c55-40 100-40 140-10" fill="none" stroke="#ef4444" stroke-width="5" stroke-dasharray="10 8"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔴</div><div><b>1. IR line sensor</b><span>IR sensor chiqishini o‘qish</span></div></div>
+      <button onclick="openProject(24)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="ir obstacle sensor" data-category="ir">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="260" y="105" width="180" height="115" rx="16" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="315" cy="163" r="22" fill="#07101b" stroke="#ef4444" stroke-width="6"/><circle cx="385" cy="163" r="22" fill="#07101b" stroke="#ef4444" stroke-width="6"/>
+<path d="M315 125C260 85 215 85 175 115M385 125c55-40 100-40 140-10" fill="none" stroke="#ef4444" stroke-width="5" stroke-dasharray="10 8"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🛑</div><div><b>2. IR obstacle sensor</b><span>To‘siqni infraqizil orqali aniqlash</span></div></div>
+      <button onclick="openProject(25)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="ir counter" data-category="ir">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="260" y="105" width="180" height="115" rx="16" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="315" cy="163" r="22" fill="#07101b" stroke="#ef4444" stroke-width="6"/><circle cx="385" cy="163" r="22" fill="#07101b" stroke="#ef4444" stroke-width="6"/>
+<path d="M315 125C260 85 215 85 175 115M385 125c55-40 100-40 140-10" fill="none" stroke="#ef4444" stroke-width="5" stroke-dasharray="10 8"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔢</div><div><b>3. IR counter</b><span>IR yordamida obyekt sanash</span></div></div>
+      <button onclick="openProject(26)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🦾</div>
+        <div><div class="topic-no">MAVZU 10</div><h3>Manipulyator yasash</h3><p>Servo motorli robot qo‘l</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="servo robot qo‘l" data-category="arm">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="130" y="245" width="440" height="28" rx="12" fill="#102b42" stroke="#35526b"/>
+<circle cx="230" cy="225" r="35" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M230 190L280 120L365 150L430 90" fill="none" stroke="#9eb0c5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="280" cy="120" r="18" fill="#8b5cf6"/><circle cx="365" cy="150" r="18" fill="#22d3ee"/>
+<path d="M430 90l40-25M430 90l35 30" stroke="#9eb0c5" stroke-width="12" stroke-linecap="round"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🦾</div><div><b>1. Servo robot qo‘l</b><span>Bir servo bilan oddiy mexanizm</span></div></div>
+      <button onclick="openProject(27)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="4-dof manipulyator" data-category="arm">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="130" y="245" width="440" height="28" rx="12" fill="#102b42" stroke="#35526b"/>
+<circle cx="230" cy="225" r="35" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M230 190L280 120L365 150L430 90" fill="none" stroke="#9eb0c5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="280" cy="120" r="18" fill="#8b5cf6"/><circle cx="365" cy="150" r="18" fill="#22d3ee"/>
+<path d="M430 90l40-25M430 90l35 30" stroke="#9eb0c5" stroke-width="12" stroke-linecap="round"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🦾</div><div><b>2. 4-DOF manipulyator</b><span>Bir nechta servo bilan robot qo‘l</span></div></div>
+      <button onclick="openProject(28)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="gripper" data-category="arm">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="130" y="245" width="440" height="28" rx="12" fill="#102b42" stroke="#35526b"/>
+<circle cx="230" cy="225" r="35" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<path d="M230 190L280 120L365 150L430 90" fill="none" stroke="#9eb0c5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="280" cy="120" r="18" fill="#8b5cf6"/><circle cx="365" cy="150" r="18" fill="#22d3ee"/>
+<path d="M430 90l40-25M430 90l35 30" stroke="#9eb0c5" stroke-width="12" stroke-linecap="round"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">✋</div><div><b>3. Gripper</b><span>Servo yordamida predmetni ushlash</span></div></div>
+      <button onclick="openProject(29)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🚧</div>
+        <div><div class="topic-no">MAVZU 11</div><h3>To‘siqdan qochuvchi robot</h3><p>Ultratovush sensorli avtonom robot</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="obstacle avoiding robot" data-category="obstacle">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="245" y="135" width="210" height="90" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="285" cy="230" r="30" fill="#0b1624" stroke="#9eb0c5" stroke-width="7"/><circle cx="415" cy="230" r="30" fill="#0b1624" stroke="#9eb0c5" stroke-width="7"/>
+<path d="M350 135V90M350 90l-25-20M350 90l25-20" stroke="#9eb0c5" stroke-width="7"/>
+<rect x="510" y="130" width="65" height="110" rx="8" fill="#7f1d1d" stroke="#ef4444" stroke-width="5"/>
+<path d="M470 160h-35M470 205h-35" stroke="#22d3ee" stroke-width="5" stroke-dasharray="8 7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🚧</div><div><b>1. Obstacle avoiding robot</b><span>HC-SR04 bilan to‘siqdan qochish</span></div></div>
+      <button onclick="openProject(30)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="servo scanner robot" data-category="obstacle">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="245" y="135" width="210" height="90" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="285" cy="230" r="30" fill="#0b1624" stroke="#9eb0c5" stroke-width="7"/><circle cx="415" cy="230" r="30" fill="#0b1624" stroke="#9eb0c5" stroke-width="7"/>
+<path d="M350 135V90M350 90l-25-20M350 90l25-20" stroke="#9eb0c5" stroke-width="7"/>
+<rect x="510" y="130" width="65" height="110" rx="8" fill="#7f1d1d" stroke="#ef4444" stroke-width="5"/>
+<path d="M470 160h-35M470 205h-35" stroke="#22d3ee" stroke-width="5" stroke-dasharray="8 7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔎</div><div><b>2. Servo scanner robot</b><span>Old tomonni skaner qilib yo‘nalish tanlash</span></div></div>
+      <button onclick="openProject(31)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="smart avoiding car" data-category="obstacle">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="245" y="135" width="210" height="90" rx="18" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="285" cy="230" r="30" fill="#0b1624" stroke="#9eb0c5" stroke-width="7"/><circle cx="415" cy="230" r="30" fill="#0b1624" stroke="#9eb0c5" stroke-width="7"/>
+<path d="M350 135V90M350 90l-25-20M350 90l25-20" stroke="#9eb0c5" stroke-width="7"/>
+<rect x="510" y="130" width="65" height="110" rx="8" fill="#7f1d1d" stroke="#ef4444" stroke-width="5"/>
+<path d="M470 160h-35M470 205h-35" stroke="#22d3ee" stroke-width="5" stroke-dasharray="8 7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🧠</div><div><b>3. Smart avoiding car</b><span>Bir nechta sensor bilan avtonom yurish</span></div></div>
+      <button onclick="openProject(32)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🥋</div>
+        <div><div class="topic-no">MAVZU 12</div><h3>Sumo Car</h3><p>Raqibni aniqlaydigan sumo robot</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="sumo robot" data-category="sumo">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="165" r="115" fill="#18202a" stroke="#d1d5db" stroke-width="8"/>
+<circle cx="350" cy="165" r="80" fill="none" stroke="#3c4a59" stroke-width="3"/>
+<rect x="260" y="125" width="85" height="55" rx="12" fill="#102b42" stroke="#22d3ee" stroke-width="4"/>
+<rect x="355" y="150" width="85" height="55" rx="12" fill="#2a1620" stroke="#ef4444" stroke-width="4"/>
+<path d="M335 153h20M345 143v20" stroke="#22d3ee" stroke-width="5"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🥋</div><div><b>1. Sumo robot</b><span>Raqibni maydondan chiqarish</span></div></div>
+      <button onclick="openProject(33)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="mini sumo car" data-category="sumo">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="165" r="115" fill="#18202a" stroke="#d1d5db" stroke-width="8"/>
+<circle cx="350" cy="165" r="80" fill="none" stroke="#3c4a59" stroke-width="3"/>
+<rect x="260" y="125" width="85" height="55" rx="12" fill="#102b42" stroke="#22d3ee" stroke-width="4"/>
+<rect x="355" y="150" width="85" height="55" rx="12" fill="#2a1620" stroke="#ef4444" stroke-width="4"/>
+<path d="M335 153h20M345 143v20" stroke="#22d3ee" stroke-width="5"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">⚔️</div><div><b>2. Mini sumo car</b><span>IR va motor driver bilan sumo robot</span></div></div>
+      <button onclick="openProject(34)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="sumo strategy" data-category="sumo">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="165" r="115" fill="#18202a" stroke="#d1d5db" stroke-width="8"/>
+<circle cx="350" cy="165" r="80" fill="none" stroke="#3c4a59" stroke-width="3"/>
+<rect x="260" y="125" width="85" height="55" rx="12" fill="#102b42" stroke="#22d3ee" stroke-width="4"/>
+<rect x="355" y="150" width="85" height="55" rx="12" fill="#2a1620" stroke="#ef4444" stroke-width="4"/>
+<path d="M335 153h20M345 143v20" stroke="#22d3ee" stroke-width="5"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🎯</div><div><b>3. Sumo strategy</b><span>Sensorlar asosida hujum va himoya</span></div></div>
+      <button onclick="openProject(35)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">⚙️</div>
+        <div><div class="topic-no">MAVZU 13</div><h3>Motor driver va turlari</h3><p>L298N va L293D bilan motor boshqarish</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="l298n motor control" data-category="driver">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="235" y="70" width="230" height="190" rx="18" fill="#12314a" stroke="#22d3ee" stroke-width="5"/>
+<rect x="280" y="105" width="140" height="70" rx="8" fill="#07101b" stroke="#35526b"/>
+<circle cx="300" cy="205" r="12" fill="#22d3ee"/><circle cx="350" cy="205" r="12" fill="#8b5cf6"/><circle cx="400" cy="205" r="12" fill="#22c55e"/>
+<path d="M180 115h55M180 165h55M465 115h55M465 165h55" stroke="#9eb0c5" stroke-width="8"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">⚙️</div><div><b>1. L298N motor control</b><span>Ikki DC motorni boshqarish</span></div></div>
+      <button onclick="openProject(36)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="l293d motor control" data-category="driver">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="235" y="70" width="230" height="190" rx="18" fill="#12314a" stroke="#22d3ee" stroke-width="5"/>
+<rect x="280" y="105" width="140" height="70" rx="8" fill="#07101b" stroke="#35526b"/>
+<circle cx="300" cy="205" r="12" fill="#22d3ee"/><circle cx="350" cy="205" r="12" fill="#8b5cf6"/><circle cx="400" cy="205" r="12" fill="#22c55e"/>
+<path d="M180 115h55M180 165h55M465 115h55M465 165h55" stroke="#9eb0c5" stroke-width="8"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔧</div><div><b>2. L293D motor control</b><span>L293D yordamida robot shassi</span></div></div>
+      <button onclick="openProject(37)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="motor speed pwm" data-category="driver">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="235" y="70" width="230" height="190" rx="18" fill="#12314a" stroke="#22d3ee" stroke-width="5"/>
+<rect x="280" y="105" width="140" height="70" rx="8" fill="#07101b" stroke="#35526b"/>
+<circle cx="300" cy="205" r="12" fill="#22d3ee"/><circle cx="350" cy="205" r="12" fill="#8b5cf6"/><circle cx="400" cy="205" r="12" fill="#22c55e"/>
+<path d="M180 115h55M180 165h55M465 115h55M465 165h55" stroke="#9eb0c5" stroke-width="8"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📈</div><div><b>3. Motor speed PWM</b><span>PWM orqali motor tezligini o‘zgartirish</span></div></div>
+      <button onclick="openProject(38)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🔄</div>
+        <div><div class="topic-no">MAVZU 14</div><h3>Servo motorlar</h3><p>MG995 va SG90 servo loyihalari</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="sg90 servo" data-category="servo">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="265" y="100" width="170" height="145" rx="16" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<rect x="300" y="135" width="100" height="70" rx="10" fill="#0a1624" stroke="#35526b"/>
+<path d="M350 135V75M350 75l55-30" stroke="#8b5cf6" stroke-width="14" stroke-linecap="round"/>
+<circle cx="350" cy="135" r="13" fill="#22d3ee"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔄</div><div><b>1. SG90 servo</b><span>SG90 burchagini Arduino bilan boshqarish</span></div></div>
+      <button onclick="openProject(39)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="mg995 servo" data-category="servo">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="265" y="100" width="170" height="145" rx="16" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<rect x="300" y="135" width="100" height="70" rx="10" fill="#0a1624" stroke="#35526b"/>
+<path d="M350 135V75M350 75l55-30" stroke="#8b5cf6" stroke-width="14" stroke-linecap="round"/>
+<circle cx="350" cy="135" r="13" fill="#22d3ee"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">💪</div><div><b>2. MG995 servo</b><span>Kuchli servo bilan mexanizm</span></div></div>
+      <button onclick="openProject(40)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="servo tester" data-category="servo">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="265" y="100" width="170" height="145" rx="16" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<rect x="300" y="135" width="100" height="70" rx="10" fill="#0a1624" stroke="#35526b"/>
+<path d="M350 135V75M350 75l55-30" stroke="#8b5cf6" stroke-width="14" stroke-linecap="round"/>
+<circle cx="350" cy="135" r="13" fill="#22d3ee"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🎛️</div><div><b>3. Servo tester</b><span>Servo uchun test qurilmasi</span></div></div>
+      <button onclick="openProject(41)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🔩</div>
+        <div><div class="topic-no">MAVZU 15</div><h3>Qadamli motor</h3><p>28BYJ-48 stepper motor</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="28byj-48 basic" data-category="stepper">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="165" r="95" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="350" cy="165" r="35" fill="#07101b" stroke="#9eb0c5" stroke-width="7"/>
+<g stroke="#9eb0c5" stroke-width="10"><path d="M350 70v55M350 205v55M255 165h55M390 165h55"/><path d="M283 98l39 39M378 193l39 39M417 98l-39 39M322 193l-39 39"/></g>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔩</div><div><b>1. 28BYJ-48 basic</b><span>Stepper motorni qadam bilan aylantirish</span></div></div>
+      <button onclick="openProject(42)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="stepper direction" data-category="stepper">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="165" r="95" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="350" cy="165" r="35" fill="#07101b" stroke="#9eb0c5" stroke-width="7"/>
+<g stroke="#9eb0c5" stroke-width="10"><path d="M350 70v55M350 205v55M255 165h55M390 165h55"/><path d="M283 98l39 39M378 193l39 39M417 98l-39 39M322 193l-39 39"/></g>
+</svg></div>
+      <div class="project-info"><div class="project-icon">↔️</div><div><b>2. Stepper direction</b><span>Yo‘nalish va tezlikni boshqarish</span></div></div>
+      <button onclick="openProject(43)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="stepper + keypad" data-category="stepper">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="165" r="95" fill="#102b42" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="350" cy="165" r="35" fill="#07101b" stroke="#9eb0c5" stroke-width="7"/>
+<g stroke="#9eb0c5" stroke-width="10"><path d="M350 70v55M350 205v55M255 165h55M390 165h55"/><path d="M283 98l39 39M378 193l39 39M417 98l-39 39M322 193l-39 39"/></g>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔢</div><div><b>3. Stepper + keypad</b><span>Tugma orqali qadamli motorni boshqarish</span></div></div>
+      <button onclick="openProject(44)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">📱</div>
+        <div><div class="topic-no">MAVZU 16</div><h3>Bluetooth orqali boshqarish</h3><p>HC-05 va HC-06 bilan masofadan boshqarish</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="hc-05 led control" data-category="bt">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<path d="M350 65v200M350 65l70 65-70 35 70 65-70 35M350 165l-70-65M350 165l-70 65" fill="none" stroke="#22d3ee" stroke-width="10" stroke-linejoin="round"/>
+<circle cx="350" cy="165" r="120" fill="none" stroke="#35526b" stroke-width="3"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📱</div><div><b>1. HC-05 LED control</b><span>Telefon orqali LED boshqarish</span></div></div>
+      <button onclick="openProject(45)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="hc-05 robot" data-category="bt">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<path d="M350 65v200M350 65l70 65-70 35 70 65-70 35M350 165l-70-65M350 165l-70 65" fill="none" stroke="#22d3ee" stroke-width="10" stroke-linejoin="round"/>
+<circle cx="350" cy="165" r="120" fill="none" stroke="#35526b" stroke-width="3"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🚗</div><div><b>2. HC-05 robot</b><span>Bluetooth orqali robot yurishini boshqarish</span></div></div>
+      <button onclick="openProject(46)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="hc-06 servo" data-category="bt">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<path d="M350 65v200M350 65l70 65-70 35 70 65-70 35M350 165l-70-65M350 165l-70 65" fill="none" stroke="#22d3ee" stroke-width="10" stroke-linejoin="round"/>
+<circle cx="350" cy="165" r="120" fill="none" stroke="#35526b" stroke-width="3"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🎛️</div><div><b>3. HC-06 servo</b><span>Telefon orqali servo burchagini o‘zgartirish</span></div></div>
+      <button onclick="openProject(47)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">📺</div>
+        <div><div class="topic-no">MAVZU 17</div><h3>Infraqizil nurli boshqaruv</h3><p>IR remote controller loyihalari</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="ir remote led" data-category="remote">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="280" y="50" width="140" height="230" rx="28" fill="#102033" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="350" cy="100" r="28" fill="#07101b" stroke="#8b5cf6" stroke-width="5"/>
+<g fill="#18344b"><circle cx="320" cy="160" r="14"/><circle cx="380" cy="160" r="14"/><circle cx="320" cy="205" r="14"/><circle cx="380" cy="205" r="14"/></g>
+<path d="M210 100c-35 35-35 95 0 130M490 100c35 35 35 95 0 130" fill="none" stroke="#22d3ee" stroke-width="5" opacity=".6"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📺</div><div><b>1. IR remote LED</b><span>Pult tugmasi bilan LED boshqarish</span></div></div>
+      <button onclick="openProject(48)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="ir remote servo" data-category="remote">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="280" y="50" width="140" height="230" rx="28" fill="#102033" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="350" cy="100" r="28" fill="#07101b" stroke="#8b5cf6" stroke-width="5"/>
+<g fill="#18344b"><circle cx="320" cy="160" r="14"/><circle cx="380" cy="160" r="14"/><circle cx="320" cy="205" r="14"/><circle cx="380" cy="205" r="14"/></g>
+<path d="M210 100c-35 35-35 95 0 130M490 100c35 35 35 95 0 130" fill="none" stroke="#22d3ee" stroke-width="5" opacity=".6"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🔄</div><div><b>2. IR remote servo</b><span>Pult bilan servo boshqarish</span></div></div>
+      <button onclick="openProject(49)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="ir remote robot" data-category="remote">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<rect x="280" y="50" width="140" height="230" rx="28" fill="#102033" stroke="#22d3ee" stroke-width="5"/>
+<circle cx="350" cy="100" r="28" fill="#07101b" stroke="#8b5cf6" stroke-width="5"/>
+<g fill="#18344b"><circle cx="320" cy="160" r="14"/><circle cx="380" cy="160" r="14"/><circle cx="320" cy="205" r="14"/><circle cx="380" cy="205" r="14"/></g>
+<path d="M210 100c-35 35-35 95 0 130M490 100c35 35 35 95 0 130" fill="none" stroke="#22d3ee" stroke-width="5" opacity=".6"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🚙</div><div><b>3. IR remote robot</b><span>Infraqizil pult orqali robot</span></div></div>
+      <button onclick="openProject(50)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+    <article class="topic">
+      <div class="topic-head">
+        <div class="topic-icon">🤖</div>
+        <div><div class="topic-no">MAVZU 18</div><h3>Qo‘shimcha robototexnika amaliyotlari</h3><p>Turli Arduino robot loyihalari</p></div>
+      </div>
+      <div class="subcards"><div class="subcard" data-project="mini radar" data-category="extra">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="190" r="95" fill="#102033" stroke="#22d3ee" stroke-width="5"/>
+<path d="M350 190L475 105" stroke="#8b5cf6" stroke-width="9"/><circle cx="350" cy="190" r="12" fill="#22d3ee"/>
+<path d="M350 55v35M350 290v35M215 190h-35M485 190h35M255 95l-25-25M445 285l25 25" stroke="#35526b" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">📡</div><div><b>1. Mini radar</b><span>Sensor va servo bilan skaner</span></div></div>
+      <button onclick="openProject(51)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="robot parking" data-category="extra">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="190" r="95" fill="#102033" stroke="#22d3ee" stroke-width="5"/>
+<path d="M350 190L475 105" stroke="#8b5cf6" stroke-width="9"/><circle cx="350" cy="190" r="12" fill="#22d3ee"/>
+<path d="M350 55v35M350 290v35M215 190h-35M485 190h35M255 95l-25-25M445 285l25 25" stroke="#35526b" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🅿️</div><div><b>2. Robot parking</b><span>Avtomatik parkovka modeli</span></div></div>
+      <button onclick="openProject(52)">🔧 Batafsil ko‘rish →</button>
+    </div><div class="subcard" data-project="arduino signalizatsiya" data-category="extra">
+      <div class="project-image"><svg viewBox="0 0 700 330"><rect width="700" height="330" rx="24" fill="#08111d"/>
+<circle cx="350" cy="190" r="95" fill="#102033" stroke="#22d3ee" stroke-width="5"/>
+<path d="M350 190L475 105" stroke="#8b5cf6" stroke-width="9"/><circle cx="350" cy="190" r="12" fill="#22d3ee"/>
+<path d="M350 55v35M350 290v35M215 190h-35M485 190h35M255 95l-25-25M445 285l25 25" stroke="#35526b" stroke-width="7"/>
+</svg></div>
+      <div class="project-info"><div class="project-icon">🚨</div><div><b>3. Arduino signalizatsiya</b><span>Sensorli ogohlantirish tizimi</span></div></div>
+      <button onclick="openProject(53)">🔧 Batafsil ko‘rish →</button>
+    </div></div>
+    </article>
+ </div>
+</section>
+
+<section class="wrap" id="arduino">
+ <div class="section-title">
+  <div class="mini">ARDUINO</div>
+  <h2>Arduino laboratoriyasi</h2>
+  <p>Detallar, ulanishlar va kodlar keyingi bosqichlarda har bir loyiha ichida bo‘ladi.</p>
+ </div>
+ <div class="about">
+  <div class="info"><h3>🔧 Kerakli qismlar</h3><p>Arduino UNO, sensorlar, servo va DC motorlar, motor driver, Bluetooth modullar va boshqa elektron komponentlar.</p></div>
+  <div class="info"><h3>💻 Arduino kodi</h3><p>Har bir loyiha uchun tayyor kod, izohlar va kodni nusxalash imkoniyati qo‘shiladi.</p></div>
+ </div>
+</section>
+
+<section class="wrap" id="guides">
+ <div class="section-title">
+  <div class="mini">QO‘LLANMALAR</div>
+  <h2>Qadam-baqadam o‘rganing</h2>
+  <p>Ulanish → kod → sinash → natija.</p>
+ </div>
+ <div class="cards">
+  <article class="card"><div class="icon">📐</div><h3>Ulanish sxemasi</h3><p>Arduino pinlari va modullarni qanday ulash ko‘rsatiladi.</p></article>
+  <article class="card"><div class="icon">▶️</div><h3>Ishlash tartibi</h3><p>Loyiha qanday ishlashi oddiy bosqichlarda tushuntiriladi.</p></article>
+  <article class="card"><div class="icon">🔎</div><h3>Qidiruv</h3><p>Keyingi bosqichda loyiha va komponentlar bo‘yicha qidiruv qo‘shiladi.</p></article>
+ </div>
+</section>
+</main>
+
+<footer>© 2026 MEDIKLAR_2012 • Robototexnika loyihalari • 6-bosqich: Mobil menyu</footer>
+
+<script>
+function toggleMenu(){
+ const nav=document.getElementById('navlinks');
+ const btn=document.getElementById('menuToggle');
+ const backdrop=document.getElementById('menuBackdrop');
+ const open=!nav.classList.contains('open');
+ nav.classList.toggle('open',open);
+ btn.setAttribute('aria-expanded',String(open));
+ btn.setAttribute('aria-label',open?'Menyuni yopish':'Menyuni ochish');
+ btn.textContent=open?'✕':'☰';
+ backdrop.hidden=!open;
+ document.body.style.overflow=open?'hidden':'';
+}
+function closeMenu(){
+ const nav=document.getElementById('navlinks');
+ const btn=document.getElementById('menuToggle');
+ const backdrop=document.getElementById('menuBackdrop');
+ nav.classList.remove('open');
+ btn.setAttribute('aria-expanded','false');
+ btn.setAttribute('aria-label','Menyuni ochish');
+ btn.textContent='☰';
+ backdrop.hidden=true;
+ document.body.style.overflow='';
+}
+document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>{
+ document.querySelectorAll('.navlinks a').forEach(x=>x.classList.remove('active'));
+ a.classList.add('active');
+ closeMenu();
+}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+window.addEventListener('resize',()=>{if(window.innerWidth>600)closeMenu()});
+
+function getProjectSearchData(){
+  // Har bir loyiha kartasidagi ko‘rinadigan matn + yashirin projectData
+  // (komponentlar, ulanish, Arduino kodi) bo‘yicha ham qidirish.
+  const cards=[...document.querySelectorAll('.subcard[data-project]')];
+  return cards.map((card)=>{
+    const btn=card.querySelector('button[onclick^="openProject("]');
+    const m=btn ? btn.getAttribute('onclick').match(/openProject\((\d+)\)/) : null;
+    const idx=m ? Number(m[1]) : -1;
+    let extra='';
+    if(idx>=0 && typeof projectData!=='undefined' && projectData[idx]){
+      const d=projectData[idx];
+      extra=' '+[d.name,...(d.parts||[]),d.wiring,d.code].join(' ');
+    }
+    return {card, topic:card.closest('.topic'), text:(card.innerText+' '+extra).toLowerCase()};
+  });
+}
+
+function filterProjects(){
+ const q=document.getElementById('projectSearch').value.toLowerCase().trim();
+ const f=document.getElementById('topicFilter').value;
+ const items=getProjectSearchData();
+ let visible=0;
+ const topicVisible=new Map();
+
+ items.forEach(item=>{
+   const topic=[...document.querySelectorAll('.topic')].indexOf(item.topic)+1;
+   const okText=!q || item.text.includes(q);
+   const okTopic=!f || String(topic)===f;
+   const ok=okText && okTopic;
+   item.card.style.display=ok?'flex':'none';
+   item.card.classList.toggle('search-hit', !!q && ok);
+   if(ok){ visible++; topicVisible.set(item.topic,true); }
+ });
+
+ document.querySelectorAll('.topic').forEach((topic)=>{
+   const has=topicVisible.has(topic);
+   const topicNo=topic.querySelector('.topic-no')?.textContent || '';
+   const n=(topicNo.match(/(\d+)/)||[])[1] || '';
+   const filterAllows=!f || n===f;
+   topic.style.display=(has && filterAllows)?'block':'none';
+ });
+
+ document.getElementById('searchStatus').textContent =
+   visible===54 && !q && !f ? '54 ta loyiha ko‘rsatilmoqda' :
+   visible+' ta loyiha topildi';
+
+ document.getElementById('noResults').style.display=visible?'none':'block';
+ document.getElementById('clearSearch').style.display=q?'block':'none';
+}
+
+function clearProjectSearch(){
+ document.getElementById('projectSearch').value='';
+ document.getElementById('topicFilter').value='';
+ filterProjects();
+ document.getElementById('projectSearch').focus();
+}
+
+function quickSearch(term){
+ document.getElementById('projectSearch').value=term;
+ document.getElementById('topicFilter').value='';
+ filterProjects();
+ document.getElementById('projectSearch').focus();
+}
+
+function initStage5Search(){
+ filterProjects();
+ const params=new URLSearchParams(location.search);
+ const q=params.get('q');
+ if(q){
+   document.getElementById('projectSearch').value=q;
+   filterProjects();
+ }
+}
+</script>
+<div class="no-results" id="noResults">
+  <b>🔎 Hech narsa topilmadi</b>
+  <span>Qidiruv so‘zini yoki mavzu filtrini o‘zgartirib ko‘ring.</span>
+</div>
+
+<div class="project-modal" id="projectModal" onclick="if(event.target.id==='projectModal')closeProject()">
+<div class="modal-box">
+<div class="modal-top"><h2 id="modalTitle">Loyiha</h2><button class="close-modal" onclick="closeProject()">✕</button></div>
+<div class="modal-body"><div class="detail-grid">
+<div class="detail"><h3>🔧 Kerakli qismlar</h3><div class="parts" id="modalParts"></div></div>
+<div class="detail"><h3>📐 Ulanish / pinlar</h3><p class="wiring" id="modalWiring"></p></div>
+<div class="detail full"><h3>🔌 Arduino UNO R3 — to‘liq ulanish</h3><p class="wiring" id="modalPins"></p></div><div class="detail full"><h3>💻 Arduino kodi</h3><div class="code-wrap"><button class="copy-code" onclick="copyCode()">📋 Nusxalash</button><pre class="code" id="modalCode"></pre></div></div>
+<div class="detail full"><h3>▶️ Ishlash tartibi</h3><div class="steps">
+<div class="step">1️⃣ Komponentlarni quvvat o‘chirilgan holda tayyorlang.</div>
+<div class="step">2️⃣ Ulanishlarni yuqoridagi pinlar bo‘yicha bajaring.</div>
+<div class="step">3️⃣ Kodni Arduino IDE yoki ArduinoDroid orqali yuklang.</div>
+<div class="step">4️⃣ Quvvatni ulang va loyihani xavfsiz joyda sinab ko‘ring.</div>
+</div></div>
+<div class="detail full"><h3>⚠️ Muhim</h3><p>Arduino UNO R3 pinlari 5V logic uchun. Motor va MG995 kabi kuchli yuklarni Arduino 5V pinidan quvvatlamang; tashqi quvvat manbai va umumiy GND ishlating. I2C uchun A4=SDA, A5=SCL; SPI uchun D11=MOSI, D12=MISO, D13=SCK. Bir xil pinni ikki modulga berib yubormang.</p></div>
+</div></div></div></div><script>
+const projectData=[{"name": "Line follower robot", "parts": ["Arduino UNO", "2× IR sensor", "L298N", "2× DC motor", "Robot shassi"], "wiring": "IR OUT → D2,D3; L298N IN1–IN4 → D8–D11; ENA/ENB → D5/D6", "code": "const int L=2,R=3; void setup(){pinMode(L,INPUT);pinMode(R,INPUT);for(int p=8;p<=11;p++)pinMode(p,OUTPUT);} void loop(){int l=digitalRead(L),r=digitalRead(R); digitalWrite(8,!l);digitalWrite(9,l);digitalWrite(10,!r);digitalWrite(11,r);}"}, {"name": "Ikki motorli chiziq roboti", "parts": ["Arduino UNO", "2× IR sensor", "L298N", "2× DC motor"], "wiring": "IR OUT → D2,D3; L298N IN1–IN4 → D8–D11; GND umumiy", "code": "void setup(){pinMode(2,INPUT);pinMode(3,INPUT);for(int p=8;p<=11;p++)pinMode(p,OUTPUT);} void loop(){digitalWrite(8,!digitalRead(2));digitalWrite(9,digitalRead(2));digitalWrite(10,!digitalRead(3));digitalWrite(11,digitalRead(3));}"}, {"name": "Tezkor line follower", "parts": ["Arduino UNO", "2× IR sensor", "L298N", "2× DC motor"], "wiring": "IR → D2,D3; ENA → D5; ENB → D6; IN1–IN4 → D8–D11", "code": "void setup(){for(int p=2;p<=11;p++)pinMode(p,OUTPUT);} void loop(){analogWrite(5,180);analogWrite(6,180);}"}, {"name": "Robot changyutgich", "parts": ["Arduino UNO", "2× DC motor", "L298N", "Fan/motor"], "wiring": "L298N IN1–IN4 → D8–D11; fan control → D7", "code": "void setup(){for(int p=7;p<=11;p++)pinMode(p,OUTPUT);} void loop(){digitalWrite(7,HIGH);digitalWrite(8,HIGH);digitalWrite(9,LOW);digitalWrite(10,HIGH);digitalWrite(11,LOW);}"}, {"name": "Avtomatik tozalash roboti", "parts": ["Arduino UNO", "HC-SR04", "L298N", "2× DC motor"], "wiring": "TRIG → D12; ECHO → D13; L298N IN1–IN4 → D8–D11", "code": "const int T=12,E=13; void setup(){pinMode(T,OUTPUT);pinMode(E,INPUT);} void loop(){digitalWrite(T,LOW);delayMicroseconds(2);digitalWrite(T,HIGH);delayMicroseconds(10);digitalWrite(T,LOW);long d=pulseIn(E,HIGH,25000)/58;if(d>20){digitalWrite(8,HIGH);digitalWrite(9,LOW);digitalWrite(10,HIGH);digitalWrite(11,LOW);}}"}, {"name": "Mini vacuum robot", "parts": ["Arduino UNO", "DC motor", "Fan", "L298N/MOSFET"], "wiring": "Motor driver IN1–IN4 → D8–D11; fan control → D7", "code": "void setup(){for(int p=7;p<=11;p++)pinMode(p,OUTPUT);} void loop(){digitalWrite(7,HIGH);digitalWrite(8,HIGH);digitalWrite(10,HIGH);}"}, {"name": "4×4 keypad LED boshqaruvi", "parts": ["Arduino UNO", "4×4 Keypad", "LED", "220Ω"], "wiring": "Keypad qator/ustunlari → D2–D9; LED → D13 orqali 220Ω", "code": "#include <Keypad.h>\nvoid setup(){pinMode(13,OUTPUT);} void loop(){/* keypad tugmasini o‘qing */}"}, {"name": "Password keypad", "parts": ["Arduino UNO", "4×4 Keypad", "Servo", "Buzzer"], "wiring": "Keypad → D2–D9; Servo → D10; buzzer → D11", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(10);} void loop(){/* parol tekshirish */}"}, {"name": "Keypad menyu", "parts": ["Arduino UNO", "4×4 Keypad", "16×2 LCD (ixtiyoriy)"], "wiring": "Keypad → D2–D9; I2C LCD SDA/SCL → A4/A5", "code": "void setup(){} void loop(){/* menyu */}"}, {"name": "Servo smart lock", "parts": ["Arduino UNO", "SG90 servo", "Keypad yoki tugma"], "wiring": "Servo signal → D10; VCC → 5V; GND → GND", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(10);s.write(0);} void loop(){}"}, {"name": "RFID + smart lock", "parts": ["Arduino UNO", "RC522 RFID", "SG90 servo"], "wiring": "RC522 SDA D10, SCK D13, MOSI D11, MISO D12, RST D9; Servo D6", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(6);s.write(0);} void loop(){/* UID tekshirish */}"}, {"name": "Alarm smart lock", "parts": ["Arduino UNO", "Keypad", "Buzzer", "Servo"], "wiring": "Buzzer → D11; Servo → D10; keypad → D2–D9", "code": "void setup(){pinMode(11,OUTPUT);} void loop(){/* xato urinishda signal */}"}, {"name": "NRF24L01 transmitter", "parts": ["2× Arduino", "NRF24L01", "Joystick"], "wiring": "CE D9; CSN D10; MOSI D11; MISO D12; SCK D13; VCC 3.3V", "code": "#include <RF24.h>\nRF24 radio(9,10); void setup(){radio.begin();radio.stopListening();} void loop(){int v=analogRead(A0);radio.write(&v,sizeof(v));delay(50);}"}, {"name": "NRF24L01 robot boshqaruvi", "parts": ["2× Arduino", "2× NRF24L01", "L298N", "Robot"], "wiring": "Radio SPI D11–D13; CE/CSN D9/D10; motor driver D8–D11", "code": "#include <RF24.h>\nRF24 radio(9,10); int v; void setup(){radio.begin();radio.startListening();} void loop(){if(radio.available())radio.read(&v,sizeof(v));}"}, {"name": "Wireless sensor", "parts": ["2× Arduino", "NRF24L01", "Sensor"], "wiring": "Sensor → A0; NRF24L01 SPI → D11–D13, CE/CSN → D9/D10", "code": "void setup(){} void loop(){int value=analogRead(A0); /* radio orqali yuborish */}"}, {"name": "Mini quadcopter", "parts": ["Brushless motorlar", "ESC", "Flight controller", "LiPo"], "wiring": "ESC signal → flight controller; LiPo → quvvat tizimi", "code": "// Kvadrokopter uchun flight-controller firmware kerak."}, {"name": "ESC va brushless motor", "parts": ["Arduino UNO", "ESC", "Brushless motor", "LiPo"], "wiring": "ESC signal → D9; ESC GND → Arduino GND; motor ESC chiqishiga", "code": "#include <Servo.h>\nServo esc; void setup(){esc.attach(9);esc.writeMicroseconds(1000);delay(3000);} void loop(){}"}, {"name": "Gyro stabilizatsiya", "parts": ["Arduino", "MPU6050", "Motor/servo"], "wiring": "MPU6050 SDA → A4; SCL → A5; VCC/GND", "code": "void setup(){Wire.begin();} void loop(){/* gyro va PID */}"}, {"name": "Joystick servo", "parts": ["Arduino UNO", "KY-023", "SG90"], "wiring": "VRx/VRy → A0/A1; SW → D2; Servo → D9", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(9);} void loop(){s.write(map(analogRead(A0),0,1023,0,180));}"}, {"name": "Joystick robot", "parts": ["Arduino UNO", "KY-023", "L298N", "2× DC motor"], "wiring": "VRx/VRy → A0/A1; L298N IN1–IN4 → D8–D11", "code": "void setup(){for(int p=8;p<=11;p++)pinMode(p,OUTPUT);} void loop(){/* joystick → motor */}"}, {"name": "Joystick + LED", "parts": ["Arduino UNO", "KY-023", "LED", "220Ω"], "wiring": "VRx → A0; LED → D9 orqali 220Ω", "code": "void setup(){pinMode(9,OUTPUT);} void loop(){analogWrite(9,map(analogRead(A0),0,1023,0,255));}"}, {"name": "HC-SR04 masofa o‘lchagich", "parts": ["Arduino UNO", "HC-SR04"], "wiring": "TRIG → D9; ECHO → D10; VCC 5V; GND GND", "code": "const int T=9,E=10; void setup(){Serial.begin(9600);pinMode(T,OUTPUT);pinMode(E,INPUT);} void loop(){digitalWrite(T,LOW);delayMicroseconds(2);digitalWrite(T,HIGH);delayMicroseconds(10);digitalWrite(T,LOW);Serial.println(pulseIn(E,HIGH)/58);delay(200);}"}, {"name": "Ultrasonic parking", "parts": ["Arduino UNO", "HC-SR04", "Buzzer", "LED"], "wiring": "TRIG D9; ECHO D10; buzzer D8; LED D7", "code": "void setup(){pinMode(9,OUTPUT);pinMode(10,INPUT);pinMode(8,OUTPUT);pinMode(7,OUTPUT);} void loop(){digitalWrite(9,HIGH);delayMicroseconds(10);digitalWrite(9,LOW);long d=pulseIn(10,HIGH)/58;digitalWrite(7,d<30);digitalWrite(8,d<15);}"}, {"name": "Ultrasonic radar", "parts": ["Arduino UNO", "HC-SR04", "SG90 servo"], "wiring": "TRIG D9; ECHO D10; Servo D6", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(6);} void loop(){for(int a=0;a<=180;a+=5){s.write(a);delay(30);}}"}, {"name": "IR line sensor", "parts": ["Arduino UNO", "IR sensor", "LED"], "wiring": "IR OUT → D2; LED → D13", "code": "void setup(){pinMode(2,INPUT);pinMode(13,OUTPUT);} void loop(){digitalWrite(13,digitalRead(2));}"}, {"name": "IR obstacle sensor", "parts": ["Arduino UNO", "IR obstacle sensor", "Buzzer"], "wiring": "OUT → D2; buzzer → D8", "code": "void setup(){pinMode(2,INPUT);pinMode(8,OUTPUT);} void loop(){digitalWrite(8,!digitalRead(2));}"}, {"name": "IR counter", "parts": ["Arduino UNO", "IR sensor", "Display (ixtiyoriy)"], "wiring": "IR OUT → D2; interrupt ishlatiladi", "code": "volatile unsigned long count=0; void hit(){count++;} void setup(){pinMode(2,INPUT);attachInterrupt(digitalPinToInterrupt(2),hit,FALLING);} void loop(){}"}, {"name": "Servo robot qo‘l", "parts": ["Arduino UNO", "SG90", "Potensiometr"], "wiring": "Pot → A0; Servo signal → D9", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(9);} void loop(){s.write(map(analogRead(A0),0,1023,0,180));}"}, {"name": "4-DOF manipulyator", "parts": ["Arduino UNO", "4× servo", "Joystick/potensiometr"], "wiring": "Servo signallari → D3,D5,D6,D9; servo quvvati alohida 5–6V", "code": "// 4 ta servo uchun Servo kutubxonasidan foydalaning."}, {"name": "Gripper", "parts": ["Arduino UNO", "SG90/MG90S servo", "Potensiometr"], "wiring": "Servo signal → D9; pot → A0", "code": "#include <Servo.h>\nServo g; void setup(){g.attach(9);} void loop(){g.write(map(analogRead(A0),0,1023,10,170));}"}, {"name": "Obstacle avoiding robot", "parts": ["Arduino UNO", "HC-SR04", "SG90", "L298N"], "wiring": "HC-SR04 D12/D13; Servo D6; L298N D8–D11", "code": "void setup(){for(int p=8;p<=13;p++)pinMode(p,OUTPUT);} void loop(){/* masofaga qarab yo‘nalish */}"}, {"name": "Servo scanner robot", "parts": ["Arduino UNO", "HC-SR04", "Servo", "L298N"], "wiring": "Servo D6; TRIG D12; ECHO D13", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(6);} void loop(){for(int a=30;a<=150;a+=10){s.write(a);delay(50);}}"}, {"name": "Smart avoiding car", "parts": ["Arduino UNO", "HC-SR04", "2× IR", "L298N"], "wiring": "HC-SR04 D12/D13; IR D2/D3; driver D8–D11", "code": "void setup(){pinMode(2,INPUT);pinMode(3,INPUT);} void loop(){/* sensorlarni birlashtirish */}"}, {"name": "Sumo robot", "parts": ["Arduino UNO", "IR sensorlar", "L298N", "2× DC motor"], "wiring": "Chegara IR → D2,D3; raqib sensor → D4; driver → D8–D11", "code": "void setup(){for(int p=2;p<=4;p++)pinMode(p,INPUT);for(int p=8;p<=11;p++)pinMode(p,OUTPUT);} void loop(){/* sumo algoritmi */}"}, {"name": "Mini sumo car", "parts": ["Arduino UNO", "2× IR", "L298N", "Motorlar"], "wiring": "IR → D2,D3; driver D8–D11", "code": "void setup(){for(int p=8;p<=11;p++)pinMode(p,OUTPUT);} void loop(){/* sumo harakati */}"}, {"name": "Sumo strategy", "parts": ["Arduino UNO", "IR + distance sensor", "L298N"], "wiring": "Sensorlar → D2–D4; motor driver → D8–D11", "code": "void setup(){} void loop(){/* hujum, qidiruv, himoya */}"}, {"name": "L298N motor control", "parts": ["Arduino UNO", "L298N", "2× DC motor"], "wiring": "IN1–IN4 → D8–D11; ENA → D5; ENB → D6", "code": "void setup(){for(int p=8;p<=11;p++)pinMode(p,OUTPUT);} void loop(){digitalWrite(8,HIGH);digitalWrite(9,LOW);digitalWrite(10,HIGH);digitalWrite(11,LOW);}"}, {"name": "L293D motor control", "parts": ["Arduino UNO", "L293D", "2× DC motor"], "wiring": "IN1–IN4 → D8–D11; ENA/ENB → D5/D6", "code": "void setup(){for(int p=5;p<=11;p++)pinMode(p,OUTPUT);} void loop(){analogWrite(5,180);analogWrite(6,180);}"}, {"name": "Motor speed PWM", "parts": ["Arduino UNO", "Motor driver", "DC motor"], "wiring": "PWM ENA → D5 yoki D6; GND umumiy", "code": "void setup(){pinMode(5,OUTPUT);} void loop(){analogWrite(5,180);}"}, {"name": "SG90 servo", "parts": ["Arduino UNO", "SG90", "Potensiometr"], "wiring": "Servo signal → D9; pot → A0", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(9);} void loop(){s.write(map(analogRead(A0),0,1023,0,180));}"}, {"name": "MG995 servo", "parts": ["Arduino UNO", "MG995", "Tashqi 5–6V quvvat"], "wiring": "Signal → D9; servo VCC alohida manba; GND umumiy", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(9);s.write(90);} void loop(){}"}, {"name": "Servo tester", "parts": ["Arduino UNO", "Servo", "Potensiometr"], "wiring": "Servo signal D9; pot A0", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(9);} void loop(){s.write(map(analogRead(A0),0,1023,0,180));}"}, {"name": "28BYJ-48 basic", "parts": ["Arduino UNO", "28BYJ-48", "ULN2003"], "wiring": "ULN2003 IN1–IN4 → D8–D11; motor 5V", "code": "#include <Stepper.h>\nStepper m(2048,8,10,9,11); void setup(){m.setSpeed(10);} void loop(){m.step(100);}"}, {"name": "Stepper direction", "parts": ["Arduino UNO", "28BYJ-48", "ULN2003", "2 tugma"], "wiring": "IN1–IN4 → D8–D11; tugmalar → D2,D3", "code": "#include <Stepper.h>\nStepper m(2048,8,10,9,11); void setup(){m.setSpeed(10);pinMode(2,INPUT_PULLUP);pinMode(3,INPUT_PULLUP);} void loop(){if(!digitalRead(2))m.step(10);if(!digitalRead(3))m.step(-10);}"}, {"name": "Stepper + keypad", "parts": ["Arduino UNO", "28BYJ-48", "ULN2003", "Keypad"], "wiring": "Stepper → D8–D11; keypad → D2–D7", "code": "#include <Stepper.h>\nStepper m(2048,8,10,9,11); void setup(){m.setSpeed(10);} void loop(){/* keypad buyrug‘i */}"}, {"name": "HC-05 LED control", "parts": ["Arduino UNO", "HC-05", "LED", "220Ω"], "wiring": "HC-05 TX/RX → D10/D11; LED → D13", "code": "void setup(){Serial.begin(9600);pinMode(13,OUTPUT);} void loop(){if(Serial.available())digitalWrite(13,Serial.read()=='1');}"}, {"name": "HC-05 robot", "parts": ["Arduino UNO", "HC-05", "L298N", "2× DC motor"], "wiring": "HC-05 TX/RX → D10/D11; driver D8–D11; GND umumiy", "code": "void setup(){Serial.begin(9600);for(int p=8;p<=11;p++)pinMode(p,OUTPUT);} void loop(){if(Serial.available()){char c=Serial.read();if(c=='F'){digitalWrite(8,HIGH);digitalWrite(9,LOW);digitalWrite(10,HIGH);digitalWrite(11,LOW);}}}"}, {"name": "HC-06 servo", "parts": ["Arduino UNO", "HC-06", "SG90"], "wiring": "HC-06 TX/RX → D10/D11; servo D9", "code": "#include <Servo.h>\nServo s; void setup(){Serial.begin(9600);s.attach(9);} void loop(){if(Serial.available())s.write(Serial.read()=='L'?0:90);}"}, {"name": "IR remote LED", "parts": ["Arduino UNO", "IR receiver", "LED"], "wiring": "IR OUT → D2; LED → D13", "code": "#include <IRremote.hpp>\nvoid setup(){pinMode(13,OUTPUT);IrReceiver.begin(2);} void loop(){if(IrReceiver.decode()){digitalWrite(13,!digitalRead(13));IrReceiver.resume();}}"}, {"name": "IR remote servo", "parts": ["Arduino UNO", "IR receiver", "SG90"], "wiring": "IR OUT D2; servo signal D9", "code": "#include <IRremote.hpp>\n#include <Servo.h>\nServo s; void setup(){s.attach(9);IrReceiver.begin(2);} void loop(){if(IrReceiver.decode()){s.write(90);IrReceiver.resume();}}"}, {"name": "IR remote robot", "parts": ["Arduino UNO", "IR receiver", "L298N", "2× DC motor"], "wiring": "IR OUT D2; L298N IN1–IN4 → D8–D11", "code": "#include <IRremote.hpp>\nvoid setup(){IrReceiver.begin(2);} void loop(){if(IrReceiver.decode()){/* pult kodi */IrReceiver.resume();}}"}, {"name": "Mini radar", "parts": ["Arduino UNO", "HC-SR04", "SG90"], "wiring": "HC-SR04 D9/D10; servo D6", "code": "#include <Servo.h>\nServo s; void setup(){s.attach(6);} void loop(){for(int a=0;a<=180;a+=3){s.write(a);delay(25);}}"}, {"name": "Robot parking", "parts": ["Arduino UNO", "HC-SR04", "Motor/servo"], "wiring": "HC-SR04 D9/D10; motor driver D8–D11", "code": "void setup(){} void loop(){/* masofani o‘lchab parkovka */}"}, {"name": "Arduino signalizatsiya", "parts": ["Arduino UNO", "PIR/IR sensor", "Buzzer", "LED"], "wiring": "Sensor OUT → D2; buzzer D8; LED D13", "code": "void setup(){pinMode(2,INPUT);pinMode(8,OUTPUT);pinMode(13,OUTPUT);} void loop(){bool a=digitalRead(2);digitalWrite(13,a);digitalWrite(8,a);}"}];
+function formatPart(x){const t=String(x).trim();const map={"Arduino UNO":"1 dona Arduino UNO R3 platasi","Arduino":"1 dona Arduino platasi","2× IR sensor":"2 dona infraqizil (IR) datchik","IR sensor":"1 dona infraqizil (IR) datchik","L298N":"1 dona L298N motor drayveri","2× DC motor":"2 dona DC motor","DC motor":"1 dona DC motor","Robot shassi":"1 dona robot shassisi","HC-SR04":"1 dona HC-SR04 ultratovush datchigi","SG90 servo":"1 dona SG90 servomotor","Servo":"1 dona servomotor","Buzzer":"1 dona buzzer (ovozli signal)","LED":"1 dona LED","220Ω":"1 dona 220 Ω rezistor","4×4 Keypad":"1 dona 4×4 klaviatura moduli","NRF24L01":"1 dona NRF24L01 radio moduli","2× NRF24L01":"2 dona NRF24L01 radio moduli","2× Arduino":"2 dona Arduino platasi","KY-023":"1 dona KY-023 joystick moduli","RC522 RFID":"1 dona RC522 RFID moduli","MPU6050":"1 dona MPU6050 giroskop moduli","Potensiometr":"1 dona potensiometr","Fan":"1 dona ventilyator"};if(map[t])return map[t];const m=t.match(/^(\d+)×\s*(.+)$/i);return m?m[1]+' dona '+m[2]:t;}
+function openProject(i){const d=projectData[Number(i)];if(!d)return;document.getElementById('modalTitle').textContent=d.name||'Loyiha';const parts=document.getElementById('modalParts');parts.replaceChildren();(d.parts||[]).forEach(function(x){const el=document.createElement('span');el.className='part';el.textContent=formatPart(x);parts.appendChild(el);});document.getElementById('modalWiring').textContent=d.wiring||'Ulanish ma’lumoti kiritilmagan.';document.getElementById('modalPins').textContent=(typeof fullPinMaps!=='undefined'&&fullPinMaps[i])||'Pinlar ro‘yxati mavjud emas.';document.getElementById('modalCode').textContent=d.code||'Bu loyiha uchun kod kiritilmagan.';const m=document.getElementById('projectModal');m.classList.add('show');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';const box=m.querySelector('.modal-box');if(box)box.scrollTop=0;const body=m.querySelector('.modal-body');if(body)body.scrollTop=0;}
+function closeProject(){const m=document.getElementById('projectModal');m.classList.remove('show');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+async function copyCode(){const c=document.getElementById('modalCode').textContent,b=document.querySelector('.copy-code');try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(c);}else{const ta=document.createElement('textarea');ta.value=c;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();if(!ok)throw Error('copy failed');}b.textContent='✅ Nusxalandi';}catch(e){b.textContent='Kodni tanlab nusxalang';}setTimeout(()=>b.textContent='📋 Nusxalash',1800);}
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeProject();});
+</script><script>const fullPinMaps=["Arduino UNO R3:\nD2 → IR sensor LEFT OUT\nD3 → IR sensor RIGHT OUT\nD5 → L298N ENA (PWM)\nD6 → L298N ENB (PWM)\nD8 → L298N IN1\nD9 → L298N IN2\nD10 → L298N IN3\nD11 → L298N IN4\n5V → IR VCC\nGND → IR GND + L298N GND\nL298N OUT1/OUT2 → chap motor\nL298N OUT3/OUT4 → o‘ng motor\nL298N +12V/VMOT → motor batareyasi", "Arduino UNO R3:\nD2 → LEFT IR OUT\nD3 → RIGHT IR OUT\nD8 → L298N IN1\nD9 → L298N IN2\nD10 → L298N IN3\nD11 → L298N IN4\n5V → IR VCC\nGND → barcha GND\nL298N OUT1/OUT2 → chap motor\nL298N OUT3/OUT4 → o‘ng motor", "Arduino UNO R3:\nD2 → LEFT IR OUT\nD3 → RIGHT IR OUT\nD5 → L298N ENA\nD6 → L298N ENB\nD8 → IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\n5V → IR VCC\nGND → IR + L298N GND", "Arduino UNO R3:\nD7 → fan MOSFET/relay IN\nD8 → L298N IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\n5V → sensor/module VCC\nGND → umumiy GND\nL298N OUT1/OUT2 → motor 1\nL298N OUT3/OUT4 → motor 2\nFan uchun tashqi quvvat ishlating", "Arduino UNO R3:\nD8 → L298N IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\nD12 → HC-SR04 TRIG\nD13 → HC-SR04 ECHO\n5V → HC-SR04 VCC\nGND → HC-SR04 GND + L298N GND\nOUT1/OUT2 → chap motor\nOUT3/OUT4 → o‘ng motor", "Arduino UNO R3:\nD7 → fan MOSFET/relay IN\nD8 → L298N IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\n5V → modul VCC\nGND → umumiy GND", "Arduino UNO R3:\nD2,D3,D4,D5 → Keypad R1,R2,R3,R4\nD6,D7,D8,D9 → Keypad C1,C2,C3,C4\nD13 → LED anod (220Ω orqali)\nGND → LED katod\n5V → Keypad VCC (agar modul bo‘lsa)", "Arduino UNO R3:\nD2–D9 → 4×4 Keypad R1–R4/C1–C4\nD10 → Servo signal\nD11 → Buzzer +\n5V → Servo VCC (SG90 uchun qisqa sinov)\nGND → Servo GND + Buzzer GND\nKuchli servo uchun tashqi 5V–6V manba + umumiy GND", "Arduino UNO R3:\nD2–D9 → 4×4 Keypad\nA4 (SDA) → I2C LCD SDA\nA5 (SCL) → I2C LCD SCL\n5V → LCD VCC\nGND → LCD GND", "Arduino UNO R3:\nD10 → SG90 signal (orange/yellow)\n5V → SG90 VCC (qisqa test)\nGND → SG90 GND\nKeypad ishlatilsa D2–D9 → R1–R4/C1–C4\nTashqi servo quvvati bo‘lsa GND umumiy qilinadi", "Arduino UNO R3 + RC522:\nD10 → SDA/SS\nD11 → MOSI\nD12 → MISO\nD13 → SCK\nD9 → RST\n3.3V → RC522 VCC\nGND → RC522 GND\nD6 → Servo signal\nServo VCC → tashqi 5V tavsiya\nServo GND → umumiy GND", "Arduino UNO R3:\nD2–D9 → Keypad\nD10 → Servo signal\nD11 → Buzzer +\n5V/GND → mos modullar\nServo kuchli bo‘lsa tashqi 5–6V + umumiy GND", "Arduino UNO R3 + NRF24L01:\nD9 → CE\nD10 → CSN\nD11 → MOSI\nD12 → MISO\nD13 → SCK\n3.3V → VCC\nGND → GND\nJoystick VRx → A0\nJoystick VRy → A1\nJoystick SW → D2\nNRF24L01 VCC = 3.3V, 5V bermang", "Arduino UNO R3:\nD9 → NRF24L01 CE\nD10 → CSN\nD11 → MOSI\nD12 → MISO\nD13 → SCK\n3.3V → VCC\nGND → GND\nD8–D11 → L298N IN1–IN4\nEslatma: pinlar to‘qnashmasligi uchun radio CE/CSN va motor pinlarini real kodga moslab qayta tanlash kerak.", "Arduino UNO R3:\nA0 → sensor analog OUT\nD9 → NRF24L01 CE\nD10 → CSN\nD11 → MOSI\nD12 → MISO\nD13 → SCK\n3.3V → NRF VCC\nGND → umumiy GND", "Kvadrokopter:\nArduino UNO pinlari motorlarni bevosita boshqarmaydi.\nD3 → ESC1 signal\nD5 → ESC2 signal\nD6 → ESC3 signal\nD9 → ESC4 signal\nGND → barcha ESC signal GND\nLiPo → ESC quvvat kirishlari\nESC 3-faza chiqishi → brushless motor\nFlight controller ishlatilsa sensor va motor chiqishlarini controller boshqaradi.", "Arduino UNO R3:\nD9 → ESC signal\nGND → ESC signal GND\nESC qalin quvvat simlari → LiPo/batareya\nESC 3 ta motor simi → brushless motor\nMotorni qo‘l bilan ushlab test qilmang; propellersiz test qiling.", "Arduino UNO R3 + MPU6050:\nA4 → SDA\nA5 → SCL\n5V/3.3V → modulning ruxsat etilgan VCC\nGND → GND\nAktuator signal → D9 yoki boshqa PWM pin\nPID uchun D2–D13 orasidan bo‘sh pinlar tanlanadi.", "Arduino UNO R3 + KY-023:\nA0 → VRx\nA1 → VRy\nD2 → SW\n5V → VCC\nGND → GND\nD9 → SG90 signal\nServo VCC → 5V/tashqi 5–6V\nServo GND → umumiy GND", "Arduino UNO R3:\nA0 → KY-023 VRx\nA1 → KY-023 VRy\nD2 → KY-023 SW\nD5 → L298N ENA\nD6 → L298N ENB\nD8 → IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\n5V/GND → joystick\nL298N GND → Arduino GND", "Arduino UNO R3:\nA0 → KY-023 VRx\n5V → joystick VCC\nGND → joystick GND\nD9 → LED anod orqali 220Ω\nGND → LED katod", "Arduino UNO R3 + HC-SR04:\nD9 → TRIG\nD10 → ECHO\n5V → VCC\nGND → GND\nSerial Monitor → USB orqali Arduino", "Arduino UNO R3 + HC-SR04:\nD9 → TRIG\nD10 → ECHO\nD7 → LED anod (220Ω)\nD8 → Buzzer +\n5V → HC-SR04 VCC\nGND → barcha GND", "Arduino UNO R3 + HC-SR04 + SG90:\nD9 → TRIG\nD10 → ECHO\nD6 → Servo signal\n5V → HC-SR04 VCC\nServo VCC → tashqi 5V–6V tavsiya\nGND → umumiy GND", "Arduino UNO R3:\nD2 → IR OUT\n5V → IR VCC\nGND → IR GND\nD13 → LED built-in yoki tashqi LED + 220Ω", "Arduino UNO R3:\nD2 → IR OUT\nD8 → Buzzer +\n5V → IR VCC\nGND → umumiy GND", "Arduino UNO R3:\nD2 → IR OUT\n5V → IR VCC\nGND → IR GND\nD2 interrupt sifatida count uchun ishlatiladi", "Arduino UNO R3 + SG90:\nA0 → potentiometer middle pin\n5V → pot outer pin\nGND → pot outer pin\nD9 → Servo signal\nServo VCC → 5V/tashqi 5–6V\nServo GND → GND", "Arduino UNO R3:\nD3 → Servo 1 signal\nD5 → Servo 2 signal\nD6 → Servo 3 signal\nD9 → Servo 4 signal\nA0–A3 → pot/joystick analog boshqaruv\nServolar VCC → alohida 5–6V\nBarcha GND → umumiy", "Arduino UNO R3:\nA0 → potentiometer\nD9 → gripper servo signal\n5V/GND → potentiometer\nServo VCC → tashqi 5–6V tavsiya\nGND → umumiy", "Arduino UNO R3:\nD12 → HC-SR04 TRIG\nD13 → HC-SR04 ECHO\nD6 → SG90 servo signal\nD8 → L298N IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\nMotorlar → L298N OUT1–OUT4", "Arduino UNO R3:\nD12 → HC-SR04 TRIG\nD13 → ECHO\nD6 → Servo signal\nD8–D11 → L298N IN1–IN4\n5V/GND → HC-SR04\nServo uchun tashqi 5–6V tavsiya", "Arduino UNO R3:\nD2 → IR LEFT OUT\nD3 → IR RIGHT OUT\nD12 → HC-SR04 TRIG\nD13 → ECHO\nD8–D11 → L298N IN1–IN4\nGND → barcha GND", "Arduino UNO R3 Sumo:\nD2 → chap chegara IR OUT\nD3 → o‘ng chegara IR OUT\nD4 → raqib IR/distance OUT\nD8 → L298N IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\nMotorlar → OUT1–OUT4\nGND → umumiy", "Arduino UNO R3:\nD2 → chap IR OUT\nD3 → o‘ng IR OUT\nD8–D11 → L298N IN1–IN4\n5V → IR VCC\nGND → IR + L298N GND", "Arduino UNO R3:\nD2 → sensor 1\nD3 → sensor 2\nD4 → distance sensor\nD8–D11 → L298N IN1–IN4\nD5/D6 → ENA/ENB agar PWM kerak bo‘lsa\nGND → umumiy", "Arduino UNO R3 + L298N:\nD5 → ENA (PWM)\nD6 → ENB (PWM)\nD8 → IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\nOUT1/OUT2 → Motor A\nOUT3/OUT4 → Motor B\nVMOT/+12V → motor batareyasi\nGND → Arduino GND + batareya GND", "Arduino UNO R3 + L293D:\nD5 → EN1,2\nD6 → EN3,4\nD8 → 1A\nD9 → 2A\nD10 → 3A\nD11 → 4A\nMotor A → 1Y/2Y\nMotor B → 3Y/4Y\nVCC1 → 5V logic\nVCC2 → motor supply\nGND pinlari → GND", "Arduino UNO R3:\nD5 → motor driver ENA/PWM\nD8/D9 → motor A direction\n5V/GND → logic\nMotorning quvvati → driverdan tashqi manba", "Arduino UNO R3 + SG90:\nD9 → signal\n5V → VCC (kichik SG90 uchun)\nGND → GND\nA0 → potentiometer middle\nTashqi servo quvvati bo‘lsa GND umumiy", "Arduino UNO R3 + MG995:\nD9 → signal\nTashqi 5–6V → MG995 V+\nTashqi GND → MG995 GND\nArduino GND ↔ tashqi GND\nArduino 5V'dan MG995'ni to‘g‘ridan-to‘g‘ri quvvatlamang.", "Arduino UNO R3 + Servo tester:\nA0 → potentiometer middle\n5V/GND → potentiometer\nD9 → Servo signal\nServo VCC → 5V yoki tashqi 5–6V\nGND → umumiy", "Arduino UNO R3 + ULN2003 + 28BYJ-48:\nD8 → IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\n5V → ULN2003 VCC\nGND → ULN2003 GND\n28BYJ-48 → ULN2003 motor socket", "Arduino UNO R3:\nD2 → Forward tugma\nD3 → Reverse tugma\nD8 → ULN2003 IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\nTugmalarning ikkinchi tomoni → GND\nINPUT_PULLUP ishlatiladi", "Arduino UNO R3:\nD2–D7 → Keypad\nD8–D11 → ULN2003 IN1–IN4\n5V → ULN2003 VCC\nGND → umumiy\n28BYJ-48 → ULN2003 socket", "Arduino UNO R3 + HC-05:\nD10 → HC-05 TXD (Arduino SoftwareSerial RX)\nD11 → HC-05 RXD (Arduino TX; kuchlanish bo‘luvchi tavsiya)\n5V → HC-05 VCC (breakout modul bo‘lsa)\nGND → GND\nD13 → LED + 220Ω", "Arduino UNO R3 + HC-05:\nD10 → HC-05 TXD\nD11 → HC-05 RXD\nD8 → L298N IN1\nD9 → IN2\nD10/D11 radio uchun band bo‘lgani sababli motor pinlari bilan to‘qnashuvni oldini olish uchun amaliy kodda motor pinlarini D4,D5,D6,D7 ga ko‘chirish tavsiya.\nL298N ENA/ENB → PWM D5/D6 yoki boshqa bo‘sh PWM\nGND → umumiy", "Arduino UNO R3 + HC-06:\nD10 → HC-06 TXD\nD11 → HC-06 RXD\nD9 → Servo signal\n5V → modul VCC\nGND → umumiy\nRX uchun kuchlanish bo‘luvchi tavsiya", "Arduino UNO R3 + IR receiver:\nD2 → IR receiver OUT\n5V → VCC\nGND → GND\nD13 → LED built-in yoki tashqi LED + 220Ω", "Arduino UNO R3 + IR receiver + SG90:\nD2 → IR OUT\nD9 → Servo signal\n5V → IR VCC\nServo VCC → 5V/tashqi 5–6V\nGND → umumiy", "Arduino UNO R3 + IR receiver + L298N:\nD2 → IR receiver OUT\nD8 → L298N IN1\nD9 → IN2\nD10 → IN3\nD11 → IN4\nD5 → ENA PWM\nD6 → ENB PWM\nMotorlar → OUT1–OUT4\nGND → umumiy", "Arduino UNO R3 + HC-SR04 + SG90:\nD9 → HC-SR04 TRIG\nD10 → ECHO\nD6 → Servo signal\n5V/GND → HC-SR04\nServo uchun tashqi 5–6V tavsiya\nGND → umumiy", "Arduino UNO R3:\nD9 → HC-SR04 TRIG\nD10 → ECHO\nD8–D11 → L298N IN1–IN4\nD5/D6 → ENA/ENB\nMasofaga qarab motor yo‘nalishi o‘zgartiriladi", "Arduino UNO R3 signalizatsiya:\nD2 → PIR/IR OUT\nD8 → Buzzer +\nD13 → LED + 220Ω\n5V → sensor VCC\nGND → sensor/buzzer GND"];</script><script>initStage5Search();</script></body>
+</html>
